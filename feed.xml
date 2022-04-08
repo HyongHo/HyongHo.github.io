@@ -1,256 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-08T10:25:23+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>GitHub User</name></author><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-4.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%204</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-4.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
-
-<hr />
-
-<p>최근 <code class="language-plaintext highlighter-rouge">Express.js</code>로 사내 rest-api서버를 구축했었는데, 그 중 사용자 인증을 처리를 JWT로 구현했었다.
-그때는 사용방법만 빠르게 익히고 구현했기 때문에 정리할 시간이 없었다.</p>
-
-<p>현재 서비스를 오픈하고 시간이 남아서 지금이라도 정리를 해본다.<code class="language-plaintext highlighter-rouge">(기억 &lt; 기록 )</code></p>
-
-<p>본 포스트는 JWT 공식문서를 번역 및 테스트하여 정리한 글이다.</p>
-
-<p><br /></p>
-
-<h2 id="json-웹-토큰이란">JSON 웹 토큰이란?</h2>
-
-<p><code class="language-plaintext highlighter-rouge">JWT(JSON Web Token)</code>는 당사자 간에 정보를 <code class="language-plaintext highlighter-rouge">JSON</code> 개체로 안전하게 전송하기 위한 간결하고 자체 포함된 방법을 정의하는 개방형 표준이다. 이 정보는 디지털 서명이 되어 있으므로 신뢰할 수 있다.
-<code class="language-plaintext highlighter-rouge">JWT</code>는 비밀(<code class="language-plaintext highlighter-rouge">HMAC</code> 알고리즘 사용)을 사용하거나 <code class="language-plaintext highlighter-rouge">RSA</code> 또는 <code class="language-plaintext highlighter-rouge">ECDSA</code> 를 사용하는 공개/개인 키 쌍을 사용하여 서명할 수 있다.</p>
-
-<p><br /></p>
-
-<h2 id="json-웹-토큰은-언제-사용하는가">JSON 웹 토큰은 언제 사용하는가?</h2>
-
-<ul>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">인증(Authorization)</code>, 가장 일반적으로 사용하는 이유이다. 사용자가 로그인하면 서버에서 토큰을 발급해주고 후속 요청에는 JWT가 표함되어 사용자가 해당 토큰으로 허용되는 경로, 서비스 및 리소스에 엑세스할 수 있다.</p>
-  </li>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">정보 교환</code>, 당사자 간에 정보를 안전하게 전송하는 좋은 방법이다. 공개/개인 키 쌍을 사용하여 JWT에 서명할 수 있기 때문에 발신자가 누군지 확인할 수 있다. 또한, 헤더와 페이로드를 사용하여 서명을 계산하므로 콘텐츠가 변조되지 않았는지 확인할 수 있다.</p>
-  </li>
-</ul>
-
-<p><br /></p>
-
-<h2 id="json-웹-토큰의-구조">JSON 웹 토큰의 구조</h2>
-
-<p>!image</p>
-
-<p>간결한 형태의 JSON 웹 토큰은 <code class="language-plaintext highlighter-rouge">점(.)</code>으로 구분된 세 부분으로 구성되어 있다.</p>
-
-<ul>
-  <li>헤더, Header</li>
-  <li>페이로드, Payload</li>
-  <li>서명, Signature</li>
-</ul>
-
-<p>따라서, JWT는 일반적으로 아래와 같다.</p>
-
-<p><code class="language-plaintext highlighter-rouge">xxxxx.yyyyy.zzzzz</code></p>
-
-<h3 id="header">Header</h3>
-<p>Header는 일반적으로 JWT인 토큰 유형과 <code class="language-plaintext highlighter-rouge">HMAC SHA256</code> 또는 <code class="language-plaintext highlighter-rouge">RSA</code>와 같이 사용 중인 서명 알고리즘의 두 부분으로 구성되어있다.</p>
-
-<p>{
-  “alg”: “HS256”,
-  “typ”: “JWT”
-}</p>
-
-<p>그 다음, 이 JSON은 JWT의 첫 번째 부분을 형성하도록 인코딩된 <code class="language-plaintext highlighter-rouge">Base64Url</code>이다.</p>
-
-<p><br /></p>
-
-<h3 id="payload">Payload</h3>
-
-<p>JWT의 두 번째 부분은 <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>을 포함한 <code class="language-plaintext highlighter-rouge">Payload</code>이다. <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>은 엔티티 및 추가 데이터에 대한 설명이다.<br />
-<code class="language-plaintext highlighter-rouge">클레임(Claims)</code>에는 <code class="language-plaintext highlighter-rouge">registered</code>, <code class="language-plaintext highlighter-rouge">public</code>, and <code class="language-plaintext highlighter-rouge">private claims</code> 3가지 유형이 있다.</p>
-
-<ul>
-  <li>
-    <p>등록된 클레임(Registered claims) : 필수는 아니지만, 유용하고 상호 운용 가능한 클레임 집합을 제공하기 위해 권장되는 미리 정의된 클레입 집합이다. 그 중 일부는 <code class="language-plaintext highlighter-rouge">iss(발급자)</code>, <code class="language-plaintext highlighter-rouge">exp(만료 기간)</code>, <code class="language-plaintext highlighter-rouge">sub(제목)</code>, <code class="language-plaintext highlighter-rouge">aud(대상)</code> 및 기타이다.</p>
-  </li>
-  <li>
-    <p>공개 클레임(Public claims) : JWT를 사용하는 사람들이 마음대로 정의할 수 있다. 그러나 충돌을 방지하려면 IANA JSON Web Token Registry에서 정의하거나 충돌을 방지할 수 있는 네임스페이스를 포함하는 URI로 정의해야 한다.</p>
-  </li>
-  <li>
-    <p>비공개 클레임(Private claims) : 사용에 동의하고 등록된 클레임이나 공개 클레임이 아닌 당사자간에 정보를 공유하기 위해 생성된 맞춤 클레임이다.</p>
-  </li>
-</ul>
-
-<p>{
-  “sub”: “1234567890”,
-  “name”: “John Doe”,
-  “admin”: true
-}</p>
-
-<p>그 다음, Payload는 <code class="language-plaintext highlighter-rouge">Base64Url</code>로 인코딩되어 JWT의 두 번째 부분을 형성한다.</p>
-
-<blockquote>
-  <p>서명된 토큰의 경우 이 정보는 변조로부터 보호되지만 누구나 읽을 수 있다. 암호화되지 않은 경우 JWT의 Payload 또는 header 요소에 비밀 정보를 넣지 말아야된다.</p>
-</blockquote>
-
-<p><br /></p>
-
-<h3 id="signature">Signature</h3>
-
-<p>서명을 생성하려면 인코딩된 <code class="language-plaintext highlighter-rouge">header</code>, 인코딩된 <code class="language-plaintext highlighter-rouge">Payload</code>, <code class="language-plaintext highlighter-rouge">secret</code>, header에 지정된 알고리즘을 가져와서 서명해야 한다.<br />
-예를 들어 HMAC SHA256 알고리즘을 사용하려는 경우 서명은 다음과 같이 생성된다.</p>
-
-<p>HMACSHA256(
-  base64UrlEncode(header) + “.” +
-  base64UrlEncode(payload),
-  secret)</p>
-
-<p>서명은 메시지가 도중에 변경되지 않았는지 확인하는 데 사용되며 개인 키로 서명된 토큰의 경우 JWT의 보낸 사람이 누군지 확인할 수도 있다.</p>
-
-<p><br /></p>
-
-<h3 id="모두-합치면">모두 합치면</h3>
-
-<p>출력은 HTML 및 HTTP 환경에서 쉽게 전달할 수 있도록 점으로 구분된 3개의 Base64-URL 문자열이다.</p>
-
-<p>다음은 header와 payload가 인코딩되어 있고 비밀로 서명된 JWT를 보여준 것이다.</p>
-
-<p>!image</p>
-
-<p>JWT를 사용하고 이러한 개념을 실제로 적용하고 싶다면 jwt.io 디버거 를 사용하여 JWT 를 디코딩, 확인 및 생성할 수 있다.</p>
-
-<p><br /></p>
-
-<h2 id="json-웹-토큰은-어떻게-작동하는가">JSON 웹 토큰은 어떻게 작동하는가?</h2>
-<ul>
-  <li>인증에서 사용자가 자격 증명을 사용하여 성공적으로 로그인하면 토큰을 생성하여 반환한다.</li>
-  <li>일반적으로 토큰을 필요 이상으로 오래 보관하지 않는다.</li>
-  <li>또한, 보안이 취약하기 때문에 민감한 세션 데이터를 브라우저 저장소에 저장해서는 안된다.</li>
-  <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
-  <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
-  <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-3.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%203</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-3.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
-
-<hr />
-
-<p>최근 <code class="language-plaintext highlighter-rouge">Express.js</code>로 사내 rest-api서버를 구축했었는데, 그 중 사용자 인증을 처리를 JWT로 구현했었다.
-그때는 사용방법만 빠르게 익히고 구현했기 때문에 정리할 시간이 없었다.</p>
-
-<p>현재 서비스를 오픈하고 시간이 남아서 지금이라도 정리를 해본다.<code class="language-plaintext highlighter-rouge">(기억 &lt; 기록 )</code></p>
-
-<p>본 포스트는 JWT 공식문서를 번역 및 테스트하여 정리한 글이다.</p>
-
-<p><br /></p>
-
-<h2 id="json-웹-토큰이란">JSON 웹 토큰이란?</h2>
-
-<p><code class="language-plaintext highlighter-rouge">JWT(JSON Web Token)</code>는 당사자 간에 정보를 <code class="language-plaintext highlighter-rouge">JSON</code> 개체로 안전하게 전송하기 위한 간결하고 자체 포함된 방법을 정의하는 개방형 표준이다. 이 정보는 디지털 서명이 되어 있으므로 신뢰할 수 있다.
-<code class="language-plaintext highlighter-rouge">JWT</code>는 비밀(<code class="language-plaintext highlighter-rouge">HMAC</code> 알고리즘 사용)을 사용하거나 <code class="language-plaintext highlighter-rouge">RSA</code> 또는 <code class="language-plaintext highlighter-rouge">ECDSA</code> 를 사용하는 공개/개인 키 쌍을 사용하여 서명할 수 있다.</p>
-
-<p><br /></p>
-
-<h2 id="json-웹-토큰은-언제-사용하는가">JSON 웹 토큰은 언제 사용하는가?</h2>
-
-<ul>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">인증(Authorization)</code>, 가장 일반적으로 사용하는 이유이다. 사용자가 로그인하면 서버에서 토큰을 발급해주고 후속 요청에는 JWT가 표함되어 사용자가 해당 토큰으로 허용되는 경로, 서비스 및 리소스에 엑세스할 수 있다.</p>
-  </li>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">정보 교환</code>, 당사자 간에 정보를 안전하게 전송하는 좋은 방법이다. 공개/개인 키 쌍을 사용하여 JWT에 서명할 수 있기 때문에 발신자가 누군지 확인할 수 있다. 또한, 헤더와 페이로드를 사용하여 서명을 계산하므로 콘텐츠가 변조되지 않았는지 확인할 수 있다.</p>
-  </li>
-</ul>
-
-<p><br /></p>
-
-<h2 id="json-웹-토큰의-구조">JSON 웹 토큰의 구조</h2>
-
-<p>!image</p>
-
-<p>간결한 형태의 JSON 웹 토큰은 <code class="language-plaintext highlighter-rouge">점(.)</code>으로 구분된 세 부분으로 구성되어 있다.</p>
-
-<ul>
-  <li>헤더, Header</li>
-  <li>페이로드, Payload</li>
-  <li>서명, Signature</li>
-</ul>
-
-<p>따라서, JWT는 일반적으로 아래와 같다.</p>
-
-<p><code class="language-plaintext highlighter-rouge">xxxxx.yyyyy.zzzzz</code></p>
-
-<h3 id="header">Header</h3>
-<p>Header는 일반적으로 JWT인 토큰 유형과 <code class="language-plaintext highlighter-rouge">HMAC SHA256</code> 또는 <code class="language-plaintext highlighter-rouge">RSA</code>와 같이 사용 중인 서명 알고리즘의 두 부분으로 구성되어있다.</p>
-
-<p>{
-  “alg”: “HS256”,
-  “typ”: “JWT”
-}</p>
-
-<p>그 다음, 이 JSON은 JWT의 첫 번째 부분을 형성하도록 인코딩된 <code class="language-plaintext highlighter-rouge">Base64Url</code>이다.</p>
-
-<p><br /></p>
-
-<h3 id="payload">Payload</h3>
-
-<p>JWT의 두 번째 부분은 <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>을 포함한 <code class="language-plaintext highlighter-rouge">Payload</code>이다. <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>은 엔티티 및 추가 데이터에 대한 설명이다.<br />
-<code class="language-plaintext highlighter-rouge">클레임(Claims)</code>에는 <code class="language-plaintext highlighter-rouge">registered</code>, <code class="language-plaintext highlighter-rouge">public</code>, and <code class="language-plaintext highlighter-rouge">private claims</code> 3가지 유형이 있다.</p>
-
-<ul>
-  <li>
-    <p>등록된 클레임(Registered claims) : 필수는 아니지만, 유용하고 상호 운용 가능한 클레임 집합을 제공하기 위해 권장되는 미리 정의된 클레입 집합이다. 그 중 일부는 <code class="language-plaintext highlighter-rouge">iss(발급자)</code>, <code class="language-plaintext highlighter-rouge">exp(만료 기간)</code>, <code class="language-plaintext highlighter-rouge">sub(제목)</code>, <code class="language-plaintext highlighter-rouge">aud(대상)</code> 및 기타이다.</p>
-  </li>
-  <li>
-    <p>공개 클레임(Public claims) : JWT를 사용하는 사람들이 마음대로 정의할 수 있다. 그러나 충돌을 방지하려면 IANA JSON Web Token Registry에서 정의하거나 충돌을 방지할 수 있는 네임스페이스를 포함하는 URI로 정의해야 한다.</p>
-  </li>
-  <li>
-    <p>비공개 클레임(Private claims) : 사용에 동의하고 등록된 클레임이나 공개 클레임이 아닌 당사자간에 정보를 공유하기 위해 생성된 맞춤 클레임이다.</p>
-  </li>
-</ul>
-
-<p>{
-  “sub”: “1234567890”,
-  “name”: “John Doe”,
-  “admin”: true
-}</p>
-
-<p>그 다음, Payload는 <code class="language-plaintext highlighter-rouge">Base64Url</code>로 인코딩되어 JWT의 두 번째 부분을 형성한다.</p>
-
-<blockquote>
-  <p>서명된 토큰의 경우 이 정보는 변조로부터 보호되지만 누구나 읽을 수 있다. 암호화되지 않은 경우 JWT의 Payload 또는 header 요소에 비밀 정보를 넣지 말아야된다.</p>
-</blockquote>
-
-<p><br /></p>
-
-<h3 id="signature">Signature</h3>
-
-<p>서명을 생성하려면 인코딩된 <code class="language-plaintext highlighter-rouge">header</code>, 인코딩된 <code class="language-plaintext highlighter-rouge">Payload</code>, <code class="language-plaintext highlighter-rouge">secret</code>, header에 지정된 알고리즘을 가져와서 서명해야 한다.<br />
-예를 들어 HMAC SHA256 알고리즘을 사용하려는 경우 서명은 다음과 같이 생성된다.</p>
-
-<p>HMACSHA256(
-  base64UrlEncode(header) + “.” +
-  base64UrlEncode(payload),
-  secret)</p>
-
-<p>서명은 메시지가 도중에 변경되지 않았는지 확인하는 데 사용되며 개인 키로 서명된 토큰의 경우 JWT의 보낸 사람이 누군지 확인할 수도 있다.</p>
-
-<p><br /></p>
-
-<h3 id="모두-합치면">모두 합치면</h3>
-
-<p>출력은 HTML 및 HTTP 환경에서 쉽게 전달할 수 있도록 점으로 구분된 3개의 Base64-URL 문자열이다.</p>
-
-<p>다음은 header와 payload가 인코딩되어 있고 비밀로 서명된 JWT를 보여준 것이다.</p>
-
-<p>!image</p>
-
-<p>JWT를 사용하고 이러한 개념을 실제로 적용하고 싶다면 jwt.io 디버거 를 사용하여 JWT 를 디코딩, 확인 및 생성할 수 있다.</p>
-
-<p><br /></p>
-
-<h2 id="json-웹-토큰은-어떻게-작동하는가">JSON 웹 토큰은 어떻게 작동하는가?</h2>
-<ul>
-  <li>인증에서 사용자가 자격 증명을 사용하여 성공적으로 로그인하면 토큰을 생성하여 반환한다.</li>
-  <li>일반적으로 토큰을 필요 이상으로 오래 보관하지 않는다.</li>
-  <li>또한, 보안이 취약하기 때문에 민감한 세션 데이터를 브라우저 저장소에 저장해서는 안된다.</li>
-  <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
-  <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
-  <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-2.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%202</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-2.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-08T10:33:59+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>GitHub User</name></author><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-2.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%202</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-2.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
 
 <hr />
 
@@ -628,6 +376,510 @@
   <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
   <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
   <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
+</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-9.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%209</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-9.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
+
+<hr />
+
+<p>최근 <code class="language-plaintext highlighter-rouge">Express.js</code>로 사내 rest-api서버를 구축했었는데, 그 중 사용자 인증을 처리를 JWT로 구현했었다.
+그때는 사용방법만 빠르게 익히고 구현했기 때문에 정리할 시간이 없었다.</p>
+
+<p>현재 서비스를 오픈하고 시간이 남아서 지금이라도 정리를 해본다.<code class="language-plaintext highlighter-rouge">(기억 &lt; 기록 )</code></p>
+
+<p>본 포스트는 JWT 공식문서를 번역 및 테스트하여 정리한 글이다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰이란">JSON 웹 토큰이란?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">JWT(JSON Web Token)</code>는 당사자 간에 정보를 <code class="language-plaintext highlighter-rouge">JSON</code> 개체로 안전하게 전송하기 위한 간결하고 자체 포함된 방법을 정의하는 개방형 표준이다. 이 정보는 디지털 서명이 되어 있으므로 신뢰할 수 있다.
+<code class="language-plaintext highlighter-rouge">JWT</code>는 비밀(<code class="language-plaintext highlighter-rouge">HMAC</code> 알고리즘 사용)을 사용하거나 <code class="language-plaintext highlighter-rouge">RSA</code> 또는 <code class="language-plaintext highlighter-rouge">ECDSA</code> 를 사용하는 공개/개인 키 쌍을 사용하여 서명할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-언제-사용하는가">JSON 웹 토큰은 언제 사용하는가?</h2>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">인증(Authorization)</code>, 가장 일반적으로 사용하는 이유이다. 사용자가 로그인하면 서버에서 토큰을 발급해주고 후속 요청에는 JWT가 표함되어 사용자가 해당 토큰으로 허용되는 경로, 서비스 및 리소스에 엑세스할 수 있다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">정보 교환</code>, 당사자 간에 정보를 안전하게 전송하는 좋은 방법이다. 공개/개인 키 쌍을 사용하여 JWT에 서명할 수 있기 때문에 발신자가 누군지 확인할 수 있다. 또한, 헤더와 페이로드를 사용하여 서명을 계산하므로 콘텐츠가 변조되지 않았는지 확인할 수 있다.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰의-구조">JSON 웹 토큰의 구조</h2>
+
+<p>!image</p>
+
+<p>간결한 형태의 JSON 웹 토큰은 <code class="language-plaintext highlighter-rouge">점(.)</code>으로 구분된 세 부분으로 구성되어 있다.</p>
+
+<ul>
+  <li>헤더, Header</li>
+  <li>페이로드, Payload</li>
+  <li>서명, Signature</li>
+</ul>
+
+<p>따라서, JWT는 일반적으로 아래와 같다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">xxxxx.yyyyy.zzzzz</code></p>
+
+<h3 id="header">Header</h3>
+<p>Header는 일반적으로 JWT인 토큰 유형과 <code class="language-plaintext highlighter-rouge">HMAC SHA256</code> 또는 <code class="language-plaintext highlighter-rouge">RSA</code>와 같이 사용 중인 서명 알고리즘의 두 부분으로 구성되어있다.</p>
+
+<p>{
+  “alg”: “HS256”,
+  “typ”: “JWT”
+}</p>
+
+<p>그 다음, 이 JSON은 JWT의 첫 번째 부분을 형성하도록 인코딩된 <code class="language-plaintext highlighter-rouge">Base64Url</code>이다.</p>
+
+<p><br /></p>
+
+<h3 id="payload">Payload</h3>
+
+<p>JWT의 두 번째 부분은 <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>을 포함한 <code class="language-plaintext highlighter-rouge">Payload</code>이다. <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>은 엔티티 및 추가 데이터에 대한 설명이다.<br />
+<code class="language-plaintext highlighter-rouge">클레임(Claims)</code>에는 <code class="language-plaintext highlighter-rouge">registered</code>, <code class="language-plaintext highlighter-rouge">public</code>, and <code class="language-plaintext highlighter-rouge">private claims</code> 3가지 유형이 있다.</p>
+
+<ul>
+  <li>
+    <p>등록된 클레임(Registered claims) : 필수는 아니지만, 유용하고 상호 운용 가능한 클레임 집합을 제공하기 위해 권장되는 미리 정의된 클레입 집합이다. 그 중 일부는 <code class="language-plaintext highlighter-rouge">iss(발급자)</code>, <code class="language-plaintext highlighter-rouge">exp(만료 기간)</code>, <code class="language-plaintext highlighter-rouge">sub(제목)</code>, <code class="language-plaintext highlighter-rouge">aud(대상)</code> 및 기타이다.</p>
+  </li>
+  <li>
+    <p>공개 클레임(Public claims) : JWT를 사용하는 사람들이 마음대로 정의할 수 있다. 그러나 충돌을 방지하려면 IANA JSON Web Token Registry에서 정의하거나 충돌을 방지할 수 있는 네임스페이스를 포함하는 URI로 정의해야 한다.</p>
+  </li>
+  <li>
+    <p>비공개 클레임(Private claims) : 사용에 동의하고 등록된 클레임이나 공개 클레임이 아닌 당사자간에 정보를 공유하기 위해 생성된 맞춤 클레임이다.</p>
+  </li>
+</ul>
+
+<p>{
+  “sub”: “1234567890”,
+  “name”: “John Doe”,
+  “admin”: true
+}</p>
+
+<p>그 다음, Payload는 <code class="language-plaintext highlighter-rouge">Base64Url</code>로 인코딩되어 JWT의 두 번째 부분을 형성한다.</p>
+
+<blockquote>
+  <p>서명된 토큰의 경우 이 정보는 변조로부터 보호되지만 누구나 읽을 수 있다. 암호화되지 않은 경우 JWT의 Payload 또는 header 요소에 비밀 정보를 넣지 말아야된다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="signature">Signature</h3>
+
+<p>서명을 생성하려면 인코딩된 <code class="language-plaintext highlighter-rouge">header</code>, 인코딩된 <code class="language-plaintext highlighter-rouge">Payload</code>, <code class="language-plaintext highlighter-rouge">secret</code>, header에 지정된 알고리즘을 가져와서 서명해야 한다.<br />
+예를 들어 HMAC SHA256 알고리즘을 사용하려는 경우 서명은 다음과 같이 생성된다.</p>
+
+<p>HMACSHA256(
+  base64UrlEncode(header) + “.” +
+  base64UrlEncode(payload),
+  secret)</p>
+
+<p>서명은 메시지가 도중에 변경되지 않았는지 확인하는 데 사용되며 개인 키로 서명된 토큰의 경우 JWT의 보낸 사람이 누군지 확인할 수도 있다.</p>
+
+<p><br /></p>
+
+<h3 id="모두-합치면">모두 합치면</h3>
+
+<p>출력은 HTML 및 HTTP 환경에서 쉽게 전달할 수 있도록 점으로 구분된 3개의 Base64-URL 문자열이다.</p>
+
+<p>다음은 header와 payload가 인코딩되어 있고 비밀로 서명된 JWT를 보여준 것이다.</p>
+
+<p>!image</p>
+
+<p>JWT를 사용하고 이러한 개념을 실제로 적용하고 싶다면 jwt.io 디버거 를 사용하여 JWT 를 디코딩, 확인 및 생성할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-어떻게-작동하는가">JSON 웹 토큰은 어떻게 작동하는가?</h2>
+<ul>
+  <li>인증에서 사용자가 자격 증명을 사용하여 성공적으로 로그인하면 토큰을 생성하여 반환한다.</li>
+  <li>일반적으로 토큰을 필요 이상으로 오래 보관하지 않는다.</li>
+  <li>또한, 보안이 취약하기 때문에 민감한 세션 데이터를 브라우저 저장소에 저장해서는 안된다.</li>
+  <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
+  <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
+  <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
+</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-8.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%208</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-8.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
+
+<hr />
+
+<p>최근 <code class="language-plaintext highlighter-rouge">Express.js</code>로 사내 rest-api서버를 구축했었는데, 그 중 사용자 인증을 처리를 JWT로 구현했었다.
+그때는 사용방법만 빠르게 익히고 구현했기 때문에 정리할 시간이 없었다.</p>
+
+<p>현재 서비스를 오픈하고 시간이 남아서 지금이라도 정리를 해본다.<code class="language-plaintext highlighter-rouge">(기억 &lt; 기록 )</code></p>
+
+<p>본 포스트는 JWT 공식문서를 번역 및 테스트하여 정리한 글이다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰이란">JSON 웹 토큰이란?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">JWT(JSON Web Token)</code>는 당사자 간에 정보를 <code class="language-plaintext highlighter-rouge">JSON</code> 개체로 안전하게 전송하기 위한 간결하고 자체 포함된 방법을 정의하는 개방형 표준이다. 이 정보는 디지털 서명이 되어 있으므로 신뢰할 수 있다.
+<code class="language-plaintext highlighter-rouge">JWT</code>는 비밀(<code class="language-plaintext highlighter-rouge">HMAC</code> 알고리즘 사용)을 사용하거나 <code class="language-plaintext highlighter-rouge">RSA</code> 또는 <code class="language-plaintext highlighter-rouge">ECDSA</code> 를 사용하는 공개/개인 키 쌍을 사용하여 서명할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-언제-사용하는가">JSON 웹 토큰은 언제 사용하는가?</h2>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">인증(Authorization)</code>, 가장 일반적으로 사용하는 이유이다. 사용자가 로그인하면 서버에서 토큰을 발급해주고 후속 요청에는 JWT가 표함되어 사용자가 해당 토큰으로 허용되는 경로, 서비스 및 리소스에 엑세스할 수 있다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">정보 교환</code>, 당사자 간에 정보를 안전하게 전송하는 좋은 방법이다. 공개/개인 키 쌍을 사용하여 JWT에 서명할 수 있기 때문에 발신자가 누군지 확인할 수 있다. 또한, 헤더와 페이로드를 사용하여 서명을 계산하므로 콘텐츠가 변조되지 않았는지 확인할 수 있다.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰의-구조">JSON 웹 토큰의 구조</h2>
+
+<p>!image</p>
+
+<p>간결한 형태의 JSON 웹 토큰은 <code class="language-plaintext highlighter-rouge">점(.)</code>으로 구분된 세 부분으로 구성되어 있다.</p>
+
+<ul>
+  <li>헤더, Header</li>
+  <li>페이로드, Payload</li>
+  <li>서명, Signature</li>
+</ul>
+
+<p>따라서, JWT는 일반적으로 아래와 같다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">xxxxx.yyyyy.zzzzz</code></p>
+
+<h3 id="header">Header</h3>
+<p>Header는 일반적으로 JWT인 토큰 유형과 <code class="language-plaintext highlighter-rouge">HMAC SHA256</code> 또는 <code class="language-plaintext highlighter-rouge">RSA</code>와 같이 사용 중인 서명 알고리즘의 두 부분으로 구성되어있다.</p>
+
+<p>{
+  “alg”: “HS256”,
+  “typ”: “JWT”
+}</p>
+
+<p>그 다음, 이 JSON은 JWT의 첫 번째 부분을 형성하도록 인코딩된 <code class="language-plaintext highlighter-rouge">Base64Url</code>이다.</p>
+
+<p><br /></p>
+
+<h3 id="payload">Payload</h3>
+
+<p>JWT의 두 번째 부분은 <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>을 포함한 <code class="language-plaintext highlighter-rouge">Payload</code>이다. <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>은 엔티티 및 추가 데이터에 대한 설명이다.<br />
+<code class="language-plaintext highlighter-rouge">클레임(Claims)</code>에는 <code class="language-plaintext highlighter-rouge">registered</code>, <code class="language-plaintext highlighter-rouge">public</code>, and <code class="language-plaintext highlighter-rouge">private claims</code> 3가지 유형이 있다.</p>
+
+<ul>
+  <li>
+    <p>등록된 클레임(Registered claims) : 필수는 아니지만, 유용하고 상호 운용 가능한 클레임 집합을 제공하기 위해 권장되는 미리 정의된 클레입 집합이다. 그 중 일부는 <code class="language-plaintext highlighter-rouge">iss(발급자)</code>, <code class="language-plaintext highlighter-rouge">exp(만료 기간)</code>, <code class="language-plaintext highlighter-rouge">sub(제목)</code>, <code class="language-plaintext highlighter-rouge">aud(대상)</code> 및 기타이다.</p>
+  </li>
+  <li>
+    <p>공개 클레임(Public claims) : JWT를 사용하는 사람들이 마음대로 정의할 수 있다. 그러나 충돌을 방지하려면 IANA JSON Web Token Registry에서 정의하거나 충돌을 방지할 수 있는 네임스페이스를 포함하는 URI로 정의해야 한다.</p>
+  </li>
+  <li>
+    <p>비공개 클레임(Private claims) : 사용에 동의하고 등록된 클레임이나 공개 클레임이 아닌 당사자간에 정보를 공유하기 위해 생성된 맞춤 클레임이다.</p>
+  </li>
+</ul>
+
+<p>{
+  “sub”: “1234567890”,
+  “name”: “John Doe”,
+  “admin”: true
+}</p>
+
+<p>그 다음, Payload는 <code class="language-plaintext highlighter-rouge">Base64Url</code>로 인코딩되어 JWT의 두 번째 부분을 형성한다.</p>
+
+<blockquote>
+  <p>서명된 토큰의 경우 이 정보는 변조로부터 보호되지만 누구나 읽을 수 있다. 암호화되지 않은 경우 JWT의 Payload 또는 header 요소에 비밀 정보를 넣지 말아야된다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="signature">Signature</h3>
+
+<p>서명을 생성하려면 인코딩된 <code class="language-plaintext highlighter-rouge">header</code>, 인코딩된 <code class="language-plaintext highlighter-rouge">Payload</code>, <code class="language-plaintext highlighter-rouge">secret</code>, header에 지정된 알고리즘을 가져와서 서명해야 한다.<br />
+예를 들어 HMAC SHA256 알고리즘을 사용하려는 경우 서명은 다음과 같이 생성된다.</p>
+
+<p>HMACSHA256(
+  base64UrlEncode(header) + “.” +
+  base64UrlEncode(payload),
+  secret)</p>
+
+<p>서명은 메시지가 도중에 변경되지 않았는지 확인하는 데 사용되며 개인 키로 서명된 토큰의 경우 JWT의 보낸 사람이 누군지 확인할 수도 있다.</p>
+
+<p><br /></p>
+
+<h3 id="모두-합치면">모두 합치면</h3>
+
+<p>출력은 HTML 및 HTTP 환경에서 쉽게 전달할 수 있도록 점으로 구분된 3개의 Base64-URL 문자열이다.</p>
+
+<p>다음은 header와 payload가 인코딩되어 있고 비밀로 서명된 JWT를 보여준 것이다.</p>
+
+<p>!image</p>
+
+<p>JWT를 사용하고 이러한 개념을 실제로 적용하고 싶다면 jwt.io 디버거 를 사용하여 JWT 를 디코딩, 확인 및 생성할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-어떻게-작동하는가">JSON 웹 토큰은 어떻게 작동하는가?</h2>
+<ul>
+  <li>인증에서 사용자가 자격 증명을 사용하여 성공적으로 로그인하면 토큰을 생성하여 반환한다.</li>
+  <li>일반적으로 토큰을 필요 이상으로 오래 보관하지 않는다.</li>
+  <li>또한, 보안이 취약하기 때문에 민감한 세션 데이터를 브라우저 저장소에 저장해서는 안된다.</li>
+  <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
+  <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
+  <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
+</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-7.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%207</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-7.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
+
+<hr />
+
+<p>최근 <code class="language-plaintext highlighter-rouge">Express.js</code>로 사내 rest-api서버를 구축했었는데, 그 중 사용자 인증을 처리를 JWT로 구현했었다.
+그때는 사용방법만 빠르게 익히고 구현했기 때문에 정리할 시간이 없었다.</p>
+
+<p>현재 서비스를 오픈하고 시간이 남아서 지금이라도 정리를 해본다.<code class="language-plaintext highlighter-rouge">(기억 &lt; 기록 )</code></p>
+
+<p>본 포스트는 JWT 공식문서를 번역 및 테스트하여 정리한 글이다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰이란">JSON 웹 토큰이란?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">JWT(JSON Web Token)</code>는 당사자 간에 정보를 <code class="language-plaintext highlighter-rouge">JSON</code> 개체로 안전하게 전송하기 위한 간결하고 자체 포함된 방법을 정의하는 개방형 표준이다. 이 정보는 디지털 서명이 되어 있으므로 신뢰할 수 있다.
+<code class="language-plaintext highlighter-rouge">JWT</code>는 비밀(<code class="language-plaintext highlighter-rouge">HMAC</code> 알고리즘 사용)을 사용하거나 <code class="language-plaintext highlighter-rouge">RSA</code> 또는 <code class="language-plaintext highlighter-rouge">ECDSA</code> 를 사용하는 공개/개인 키 쌍을 사용하여 서명할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-언제-사용하는가">JSON 웹 토큰은 언제 사용하는가?</h2>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">인증(Authorization)</code>, 가장 일반적으로 사용하는 이유이다. 사용자가 로그인하면 서버에서 토큰을 발급해주고 후속 요청에는 JWT가 표함되어 사용자가 해당 토큰으로 허용되는 경로, 서비스 및 리소스에 엑세스할 수 있다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">정보 교환</code>, 당사자 간에 정보를 안전하게 전송하는 좋은 방법이다. 공개/개인 키 쌍을 사용하여 JWT에 서명할 수 있기 때문에 발신자가 누군지 확인할 수 있다. 또한, 헤더와 페이로드를 사용하여 서명을 계산하므로 콘텐츠가 변조되지 않았는지 확인할 수 있다.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰의-구조">JSON 웹 토큰의 구조</h2>
+
+<p>!image</p>
+
+<p>간결한 형태의 JSON 웹 토큰은 <code class="language-plaintext highlighter-rouge">점(.)</code>으로 구분된 세 부분으로 구성되어 있다.</p>
+
+<ul>
+  <li>헤더, Header</li>
+  <li>페이로드, Payload</li>
+  <li>서명, Signature</li>
+</ul>
+
+<p>따라서, JWT는 일반적으로 아래와 같다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">xxxxx.yyyyy.zzzzz</code></p>
+
+<h3 id="header">Header</h3>
+<p>Header는 일반적으로 JWT인 토큰 유형과 <code class="language-plaintext highlighter-rouge">HMAC SHA256</code> 또는 <code class="language-plaintext highlighter-rouge">RSA</code>와 같이 사용 중인 서명 알고리즘의 두 부분으로 구성되어있다.</p>
+
+<p>{
+  “alg”: “HS256”,
+  “typ”: “JWT”
+}</p>
+
+<p>그 다음, 이 JSON은 JWT의 첫 번째 부분을 형성하도록 인코딩된 <code class="language-plaintext highlighter-rouge">Base64Url</code>이다.</p>
+
+<p><br /></p>
+
+<h3 id="payload">Payload</h3>
+
+<p>JWT의 두 번째 부분은 <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>을 포함한 <code class="language-plaintext highlighter-rouge">Payload</code>이다. <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>은 엔티티 및 추가 데이터에 대한 설명이다.<br />
+<code class="language-plaintext highlighter-rouge">클레임(Claims)</code>에는 <code class="language-plaintext highlighter-rouge">registered</code>, <code class="language-plaintext highlighter-rouge">public</code>, and <code class="language-plaintext highlighter-rouge">private claims</code> 3가지 유형이 있다.</p>
+
+<ul>
+  <li>
+    <p>등록된 클레임(Registered claims) : 필수는 아니지만, 유용하고 상호 운용 가능한 클레임 집합을 제공하기 위해 권장되는 미리 정의된 클레입 집합이다. 그 중 일부는 <code class="language-plaintext highlighter-rouge">iss(발급자)</code>, <code class="language-plaintext highlighter-rouge">exp(만료 기간)</code>, <code class="language-plaintext highlighter-rouge">sub(제목)</code>, <code class="language-plaintext highlighter-rouge">aud(대상)</code> 및 기타이다.</p>
+  </li>
+  <li>
+    <p>공개 클레임(Public claims) : JWT를 사용하는 사람들이 마음대로 정의할 수 있다. 그러나 충돌을 방지하려면 IANA JSON Web Token Registry에서 정의하거나 충돌을 방지할 수 있는 네임스페이스를 포함하는 URI로 정의해야 한다.</p>
+  </li>
+  <li>
+    <p>비공개 클레임(Private claims) : 사용에 동의하고 등록된 클레임이나 공개 클레임이 아닌 당사자간에 정보를 공유하기 위해 생성된 맞춤 클레임이다.</p>
+  </li>
+</ul>
+
+<p>{
+  “sub”: “1234567890”,
+  “name”: “John Doe”,
+  “admin”: true
+}</p>
+
+<p>그 다음, Payload는 <code class="language-plaintext highlighter-rouge">Base64Url</code>로 인코딩되어 JWT의 두 번째 부분을 형성한다.</p>
+
+<blockquote>
+  <p>서명된 토큰의 경우 이 정보는 변조로부터 보호되지만 누구나 읽을 수 있다. 암호화되지 않은 경우 JWT의 Payload 또는 header 요소에 비밀 정보를 넣지 말아야된다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="signature">Signature</h3>
+
+<p>서명을 생성하려면 인코딩된 <code class="language-plaintext highlighter-rouge">header</code>, 인코딩된 <code class="language-plaintext highlighter-rouge">Payload</code>, <code class="language-plaintext highlighter-rouge">secret</code>, header에 지정된 알고리즘을 가져와서 서명해야 한다.<br />
+예를 들어 HMAC SHA256 알고리즘을 사용하려는 경우 서명은 다음과 같이 생성된다.</p>
+
+<p>HMACSHA256(
+  base64UrlEncode(header) + “.” +
+  base64UrlEncode(payload),
+  secret)</p>
+
+<p>서명은 메시지가 도중에 변경되지 않았는지 확인하는 데 사용되며 개인 키로 서명된 토큰의 경우 JWT의 보낸 사람이 누군지 확인할 수도 있다.</p>
+
+<p><br /></p>
+
+<h3 id="모두-합치면">모두 합치면</h3>
+
+<p>출력은 HTML 및 HTTP 환경에서 쉽게 전달할 수 있도록 점으로 구분된 3개의 Base64-URL 문자열이다.</p>
+
+<p>다음은 header와 payload가 인코딩되어 있고 비밀로 서명된 JWT를 보여준 것이다.</p>
+
+<p>!image</p>
+
+<p>JWT를 사용하고 이러한 개념을 실제로 적용하고 싶다면 jwt.io 디버거 를 사용하여 JWT 를 디코딩, 확인 및 생성할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-어떻게-작동하는가">JSON 웹 토큰은 어떻게 작동하는가?</h2>
+<ul>
+  <li>인증에서 사용자가 자격 증명을 사용하여 성공적으로 로그인하면 토큰을 생성하여 반환한다.</li>
+  <li>일반적으로 토큰을 필요 이상으로 오래 보관하지 않는다.</li>
+  <li>또한, 보안이 취약하기 때문에 민감한 세션 데이터를 브라우저 저장소에 저장해서는 안된다.</li>
+  <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
+  <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
+  <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
+</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-6.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%206</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-6.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
+
+<hr />
+
+<p>최근 <code class="language-plaintext highlighter-rouge">Express.js</code>로 사내 rest-api서버를 구축했었는데, 그 중 사용자 인증을 처리를 JWT로 구현했었다.
+그때는 사용방법만 빠르게 익히고 구현했기 때문에 정리할 시간이 없었다.</p>
+
+<p>현재 서비스를 오픈하고 시간이 남아서 지금이라도 정리를 해본다.<code class="language-plaintext highlighter-rouge">(기억 &lt; 기록 )</code></p>
+
+<p>본 포스트는 JWT 공식문서를 번역 및 테스트하여 정리한 글이다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰이란">JSON 웹 토큰이란?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">JWT(JSON Web Token)</code>는 당사자 간에 정보를 <code class="language-plaintext highlighter-rouge">JSON</code> 개체로 안전하게 전송하기 위한 간결하고 자체 포함된 방법을 정의하는 개방형 표준이다. 이 정보는 디지털 서명이 되어 있으므로 신뢰할 수 있다.
+<code class="language-plaintext highlighter-rouge">JWT</code>는 비밀(<code class="language-plaintext highlighter-rouge">HMAC</code> 알고리즘 사용)을 사용하거나 <code class="language-plaintext highlighter-rouge">RSA</code> 또는 <code class="language-plaintext highlighter-rouge">ECDSA</code> 를 사용하는 공개/개인 키 쌍을 사용하여 서명할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-언제-사용하는가">JSON 웹 토큰은 언제 사용하는가?</h2>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">인증(Authorization)</code>, 가장 일반적으로 사용하는 이유이다. 사용자가 로그인하면 서버에서 토큰을 발급해주고 후속 요청에는 JWT가 표함되어 사용자가 해당 토큰으로 허용되는 경로, 서비스 및 리소스에 엑세스할 수 있다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">정보 교환</code>, 당사자 간에 정보를 안전하게 전송하는 좋은 방법이다. 공개/개인 키 쌍을 사용하여 JWT에 서명할 수 있기 때문에 발신자가 누군지 확인할 수 있다. 또한, 헤더와 페이로드를 사용하여 서명을 계산하므로 콘텐츠가 변조되지 않았는지 확인할 수 있다.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰의-구조">JSON 웹 토큰의 구조</h2>
+
+<p>!image</p>
+
+<p>간결한 형태의 JSON 웹 토큰은 <code class="language-plaintext highlighter-rouge">점(.)</code>으로 구분된 세 부분으로 구성되어 있다.</p>
+
+<ul>
+  <li>헤더, Header</li>
+  <li>페이로드, Payload</li>
+  <li>서명, Signature</li>
+</ul>
+
+<p>따라서, JWT는 일반적으로 아래와 같다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">xxxxx.yyyyy.zzzzz</code></p>
+
+<h3 id="header">Header</h3>
+<p>Header는 일반적으로 JWT인 토큰 유형과 <code class="language-plaintext highlighter-rouge">HMAC SHA256</code> 또는 <code class="language-plaintext highlighter-rouge">RSA</code>와 같이 사용 중인 서명 알고리즘의 두 부분으로 구성되어있다.</p>
+
+<p>{
+  “alg”: “HS256”,
+  “typ”: “JWT”
+}</p>
+
+<p>그 다음, 이 JSON은 JWT의 첫 번째 부분을 형성하도록 인코딩된 <code class="language-plaintext highlighter-rouge">Base64Url</code>이다.</p>
+
+<p><br /></p>
+
+<h3 id="payload">Payload</h3>
+
+<p>JWT의 두 번째 부분은 <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>을 포함한 <code class="language-plaintext highlighter-rouge">Payload</code>이다. <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>은 엔티티 및 추가 데이터에 대한 설명이다.<br />
+<code class="language-plaintext highlighter-rouge">클레임(Claims)</code>에는 <code class="language-plaintext highlighter-rouge">registered</code>, <code class="language-plaintext highlighter-rouge">public</code>, and <code class="language-plaintext highlighter-rouge">private claims</code> 3가지 유형이 있다.</p>
+
+<ul>
+  <li>
+    <p>등록된 클레임(Registered claims) : 필수는 아니지만, 유용하고 상호 운용 가능한 클레임 집합을 제공하기 위해 권장되는 미리 정의된 클레입 집합이다. 그 중 일부는 <code class="language-plaintext highlighter-rouge">iss(발급자)</code>, <code class="language-plaintext highlighter-rouge">exp(만료 기간)</code>, <code class="language-plaintext highlighter-rouge">sub(제목)</code>, <code class="language-plaintext highlighter-rouge">aud(대상)</code> 및 기타이다.</p>
+  </li>
+  <li>
+    <p>공개 클레임(Public claims) : JWT를 사용하는 사람들이 마음대로 정의할 수 있다. 그러나 충돌을 방지하려면 IANA JSON Web Token Registry에서 정의하거나 충돌을 방지할 수 있는 네임스페이스를 포함하는 URI로 정의해야 한다.</p>
+  </li>
+  <li>
+    <p>비공개 클레임(Private claims) : 사용에 동의하고 등록된 클레임이나 공개 클레임이 아닌 당사자간에 정보를 공유하기 위해 생성된 맞춤 클레임이다.</p>
+  </li>
+</ul>
+
+<p>{
+  “sub”: “1234567890”,
+  “name”: “John Doe”,
+  “admin”: true
+}</p>
+
+<p>그 다음, Payload는 <code class="language-plaintext highlighter-rouge">Base64Url</code>로 인코딩되어 JWT의 두 번째 부분을 형성한다.</p>
+
+<blockquote>
+  <p>서명된 토큰의 경우 이 정보는 변조로부터 보호되지만 누구나 읽을 수 있다. 암호화되지 않은 경우 JWT의 Payload 또는 header 요소에 비밀 정보를 넣지 말아야된다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="signature">Signature</h3>
+
+<p>서명을 생성하려면 인코딩된 <code class="language-plaintext highlighter-rouge">header</code>, 인코딩된 <code class="language-plaintext highlighter-rouge">Payload</code>, <code class="language-plaintext highlighter-rouge">secret</code>, header에 지정된 알고리즘을 가져와서 서명해야 한다.<br />
+예를 들어 HMAC SHA256 알고리즘을 사용하려는 경우 서명은 다음과 같이 생성된다.</p>
+
+<p>HMACSHA256(
+  base64UrlEncode(header) + “.” +
+  base64UrlEncode(payload),
+  secret)</p>
+
+<p>서명은 메시지가 도중에 변경되지 않았는지 확인하는 데 사용되며 개인 키로 서명된 토큰의 경우 JWT의 보낸 사람이 누군지 확인할 수도 있다.</p>
+
+<p><br /></p>
+
+<h3 id="모두-합치면">모두 합치면</h3>
+
+<p>출력은 HTML 및 HTTP 환경에서 쉽게 전달할 수 있도록 점으로 구분된 3개의 Base64-URL 문자열이다.</p>
+
+<p>다음은 header와 payload가 인코딩되어 있고 비밀로 서명된 JWT를 보여준 것이다.</p>
+
+<p>!image</p>
+
+<p>JWT를 사용하고 이러한 개념을 실제로 적용하고 싶다면 jwt.io 디버거 를 사용하여 JWT 를 디코딩, 확인 및 생성할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-어떻게-작동하는가">JSON 웹 토큰은 어떻게 작동하는가?</h2>
+<ul>
+  <li>인증에서 사용자가 자격 증명을 사용하여 성공적으로 로그인하면 토큰을 생성하여 반환한다.</li>
+  <li>일반적으로 토큰을 필요 이상으로 오래 보관하지 않는다.</li>
+  <li>또한, 보안이 취약하기 때문에 민감한 세션 데이터를 브라우저 저장소에 저장해서는 안된다.</li>
+  <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
+  <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
+  <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
 </ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-5.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%205</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-5.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
 
 <hr />
@@ -754,7 +1006,7 @@
   <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
   <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
   <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/07/start.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-07T00:00:00+09:00</published><updated>2022-04-07T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/07/start</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/07/start.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
+</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-4.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%204</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-4.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
 
 <hr />
 
@@ -880,144 +1132,130 @@
   <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
   <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
   <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/2018/12/07/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2018-12-07T00:00:00+09:00</published><updated>2018-12-07T00:00:00+09:00</updated><id>http://localhost:4000/jekyll/2018/12/07/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/2018/12/07/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
-
-<p>To add new posts, simply add a file in the <code class="language-plaintext highlighter-rouge">_posts</code> directory that follows the convention <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
-
-<h2 id="section-1">section 1</h2>
-
-<p>Jekyll also offers powerful support for code snippets:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-<span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
-
-<h2 id="section-2">section 2</h2>
-
-<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>
-
-<p>$ a * b = c ^ b $</p>
-
-<p>$ 2^{\frac{n-1}{3}} $</p>
-
-<p>$ \int_a^b f(x)\,dx. $</p>
-
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Hello World!"</span><span class="p">;</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="c1">// prints 'Hi, Tom' to STDOUT.</span>
-</code></pre></div></div>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
-    <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-    <span class="bp">self</span><span class="p">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
-
-<span class="n">p1</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">"John"</span><span class="p">,</span> <span class="mi">36</span><span class="p">)</span>
-
-<span class="k">print</span><span class="p">(</span><span class="n">p1</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">p1</span><span class="p">.</span><span class="n">age</span><span class="p">)</span>
-</code></pre></div></div>]]></content><author><name>Jeffrey</name></author><category term="jekyll" /><category term="jekyll" /><category term="theme" /><category term="yat" /><summary type="html"><![CDATA[You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.]]></summary></entry><entry><title type="html">An exhibit of Markdown</title><link href="http://localhost:4000/markdown/2018/12/05/an-exhibit-of-markdown.html" rel="alternate" type="text/html" title="An exhibit of Markdown" /><published>2018-12-05T00:00:00+09:00</published><updated>2018-12-05T00:00:00+09:00</updated><id>http://localhost:4000/markdown/2018/12/05/an-exhibit-of-markdown</id><content type="html" xml:base="http://localhost:4000/markdown/2018/12/05/an-exhibit-of-markdown.html"><![CDATA[<p>This note demonstrates some of what <a href="http://daringfireball.net/projects/markdown/">Markdown</a> is capable of doing.</p>
-
-<h2 id="an-exhibit-of-markdown">An exhibit of Markdown</h2>
-
-<p><em>Note: Feel free to play with this page. Unlike regular notes, this doesn’t automatically save itself.</em></p>
-
-<h2 id="basic-formatting">Basic formatting</h2>
-
-<p>Paragraphs can be written like so. A paragraph is the basic block of Markdown. A paragraph is what text will turn into when there is no reason it should become anything else.</p>
-
-<p>Paragraphs must be separated by a blank line. Basic formatting of <em>italics</em> and <strong>bold</strong> is supported. This <em>can be <strong>nested</strong> like</em> so.</p>
-
-<h2 id="lists">Lists</h2>
-
-<h3 id="ordered-list">Ordered list</h3>
-
-<ol>
-  <li>Item 1</li>
-  <li>A second item</li>
-  <li>Number 3</li>
-  <li>Ⅳ</li>
-</ol>
-
-<p><em>Note: the fourth item uses the Unicode character for <a href="http://www.fileformat.info/info/unicode/char/2163/index.htm">Roman numeral four</a>.</em></p>
-
-<h3 id="unordered-list">Unordered list</h3>
-
-<ul>
-  <li>An item</li>
-  <li>Another item</li>
-  <li>Yet another item</li>
-  <li>And there’s more…</li>
-</ul>
-
-<h2 id="paragraph-modifiers">Paragraph modifiers</h2>
-
-<h3 id="code-block">Code block</h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Code blocks are very useful for developers and other people who look at code or other things that are written in plain text. As you can see, it uses a fixed-width font.
-</code></pre></div></div>
-
-<p>You can also make <code class="language-plaintext highlighter-rouge">inline code</code> to add code into other things.</p>
-
-<h3 id="quote">Quote</h3>
-
-<blockquote>
-  <p>Here is a quote. What this is should be self explanatory. Quotes are automatically indented when they are used.</p>
-</blockquote>
-
-<h2 id="headings">Headings</h2>
-
-<p>There are six levels of headings. They correspond with the six levels of HTML headings. You’ve probably noticed them already in the page. Each level down uses one more hash character.</p>
-
-<h3 id="headings-can-also-contain-formatting">Headings <em>can</em> also contain <strong>formatting</strong></h3>
-
-<h3 id="they-can-even-contain-inline-code">They can even contain <code class="language-plaintext highlighter-rouge">inline code</code></h3>
-
-<p>Of course, demonstrating what headings look like messes up the structure of the page.</p>
-
-<p>I don’t recommend using more than three or four levels of headings here, because, when you’re smallest heading isn’t too small, and you’re largest heading isn’t too big, and you want each size up to look noticeably larger and more important, there there are only so many sizes that you can use.</p>
-
-<h2 id="urls">URLs</h2>
-
-<p>URLs can be made in a handful of ways:</p>
-
-<ul>
-  <li>A named link to <a href="http://www.markitdown.net/">MarkItDown</a>. The easiest way to do these is to select what you want to make a link and hit <code class="language-plaintext highlighter-rouge">Ctrl+L</code>.</li>
-  <li>Another named link to <a href="http://www.markitdown.net/">MarkItDown</a></li>
-  <li>Sometimes you just want a URL like <a href="http://www.markitdown.net/">http://www.markitdown.net/</a>.</li>
-</ul>
-
-<h2 id="horizontal-rule">Horizontal rule</h2>
-
-<p>A horizontal rule is a line that goes across the middle of the page.</p>
+</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry><entry><title type="html">[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?</title><link href="http://localhost:4000/node.js/2022/04/08/copy-copy-3.html" rel="alternate" type="text/html" title="[Node.js] 사용자 인증 (1) - JSON Web Tokens이란?" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/08/copy%20copy%203</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/08/copy-copy-3.html"><![CDATA[<h2 id="시작으로">시작으로</h2>
 
 <hr />
 
-<p>It’s sometimes handy for breaking things up.</p>
+<p>최근 <code class="language-plaintext highlighter-rouge">Express.js</code>로 사내 rest-api서버를 구축했었는데, 그 중 사용자 인증을 처리를 JWT로 구현했었다.
+그때는 사용방법만 빠르게 익히고 구현했기 때문에 정리할 시간이 없었다.</p>
 
-<h2 id="images">Images</h2>
+<p>현재 서비스를 오픈하고 시간이 남아서 지금이라도 정리를 해본다.<code class="language-plaintext highlighter-rouge">(기억 &lt; 기록 )</code></p>
 
-<p>Markdown can also contain images. I’ll need to add something here sometime.</p>
+<p>본 포스트는 JWT 공식문서를 번역 및 테스트하여 정리한 글이다.</p>
 
-<h2 id="finally">Finally</h2>
+<p><br /></p>
 
-<p>There’s actually a lot more to Markdown than this. See the official <a href="http://daringfireball.net/projects/markdown/basics">introduction</a> and <a href="http://daringfireball.net/projects/markdown/syntax">syntax</a> for more information. However, be aware that this is not using the official implementation, and this might work subtly differently in some of the little things.</p>]]></content><author><name>GitHub User</name></author><category term="markdown" /><category term="example" /><category term="markdown" /><summary type="html"><![CDATA[This note demonstrates some of what Markdown is capable of doing.]]></summary></entry><entry><title type="html">Mathjax Test</title><link href="http://localhost:4000/markdown/2018/05/26/mathjax-test.html" rel="alternate" type="text/html" title="Mathjax Test" /><published>2018-05-26T00:00:00+09:00</published><updated>2018-05-26T00:00:00+09:00</updated><id>http://localhost:4000/markdown/2018/05/26/mathjax-test</id><content type="html" xml:base="http://localhost:4000/markdown/2018/05/26/mathjax-test.html"><![CDATA[<ul>
-  <li>A safe integer is an integer that
-    <ul>
-      <li>can be exactly represented as an IEEE-754 double precision number, and</li>
-      <li>whose IEEE-75 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation</li>
-    </ul>
+<h2 id="json-웹-토큰이란">JSON 웹 토큰이란?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">JWT(JSON Web Token)</code>는 당사자 간에 정보를 <code class="language-plaintext highlighter-rouge">JSON</code> 개체로 안전하게 전송하기 위한 간결하고 자체 포함된 방법을 정의하는 개방형 표준이다. 이 정보는 디지털 서명이 되어 있으므로 신뢰할 수 있다.
+<code class="language-plaintext highlighter-rouge">JWT</code>는 비밀(<code class="language-plaintext highlighter-rouge">HMAC</code> 알고리즘 사용)을 사용하거나 <code class="language-plaintext highlighter-rouge">RSA</code> 또는 <code class="language-plaintext highlighter-rouge">ECDSA</code> 를 사용하는 공개/개인 키 쌍을 사용하여 서명할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-언제-사용하는가">JSON 웹 토큰은 언제 사용하는가?</h2>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">인증(Authorization)</code>, 가장 일반적으로 사용하는 이유이다. 사용자가 로그인하면 서버에서 토큰을 발급해주고 후속 요청에는 JWT가 표함되어 사용자가 해당 토큰으로 허용되는 경로, 서비스 및 리소스에 엑세스할 수 있다.</p>
   </li>
-  <li>For example, $ 2 ^ {53} - 1 $ is a safe integer,
-    <ul>
-      <li>it can be exactly represented</li>
-    </ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">정보 교환</code>, 당사자 간에 정보를 안전하게 전송하는 좋은 방법이다. 공개/개인 키 쌍을 사용하여 JWT에 서명할 수 있기 때문에 발신자가 누군지 확인할 수 있다. 또한, 헤더와 페이로드를 사용하여 서명을 계산하므로 콘텐츠가 변조되지 않았는지 확인할 수 있다.</p>
   </li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="markdown" /><category term="test" /><summary type="html"><![CDATA[A safe integer is an integer that can be exactly represented as an IEEE-754 double precision number, and whose IEEE-75 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation For example, $ 2 ^ {53} - 1 $ is a safe integer, it can be exactly represented]]></summary></entry></feed>
+</ul>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰의-구조">JSON 웹 토큰의 구조</h2>
+
+<p>!image</p>
+
+<p>간결한 형태의 JSON 웹 토큰은 <code class="language-plaintext highlighter-rouge">점(.)</code>으로 구분된 세 부분으로 구성되어 있다.</p>
+
+<ul>
+  <li>헤더, Header</li>
+  <li>페이로드, Payload</li>
+  <li>서명, Signature</li>
+</ul>
+
+<p>따라서, JWT는 일반적으로 아래와 같다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">xxxxx.yyyyy.zzzzz</code></p>
+
+<h3 id="header">Header</h3>
+<p>Header는 일반적으로 JWT인 토큰 유형과 <code class="language-plaintext highlighter-rouge">HMAC SHA256</code> 또는 <code class="language-plaintext highlighter-rouge">RSA</code>와 같이 사용 중인 서명 알고리즘의 두 부분으로 구성되어있다.</p>
+
+<p>{
+  “alg”: “HS256”,
+  “typ”: “JWT”
+}</p>
+
+<p>그 다음, 이 JSON은 JWT의 첫 번째 부분을 형성하도록 인코딩된 <code class="language-plaintext highlighter-rouge">Base64Url</code>이다.</p>
+
+<p><br /></p>
+
+<h3 id="payload">Payload</h3>
+
+<p>JWT의 두 번째 부분은 <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>을 포함한 <code class="language-plaintext highlighter-rouge">Payload</code>이다. <code class="language-plaintext highlighter-rouge">클레임(Claims)</code>은 엔티티 및 추가 데이터에 대한 설명이다.<br />
+<code class="language-plaintext highlighter-rouge">클레임(Claims)</code>에는 <code class="language-plaintext highlighter-rouge">registered</code>, <code class="language-plaintext highlighter-rouge">public</code>, and <code class="language-plaintext highlighter-rouge">private claims</code> 3가지 유형이 있다.</p>
+
+<ul>
+  <li>
+    <p>등록된 클레임(Registered claims) : 필수는 아니지만, 유용하고 상호 운용 가능한 클레임 집합을 제공하기 위해 권장되는 미리 정의된 클레입 집합이다. 그 중 일부는 <code class="language-plaintext highlighter-rouge">iss(발급자)</code>, <code class="language-plaintext highlighter-rouge">exp(만료 기간)</code>, <code class="language-plaintext highlighter-rouge">sub(제목)</code>, <code class="language-plaintext highlighter-rouge">aud(대상)</code> 및 기타이다.</p>
+  </li>
+  <li>
+    <p>공개 클레임(Public claims) : JWT를 사용하는 사람들이 마음대로 정의할 수 있다. 그러나 충돌을 방지하려면 IANA JSON Web Token Registry에서 정의하거나 충돌을 방지할 수 있는 네임스페이스를 포함하는 URI로 정의해야 한다.</p>
+  </li>
+  <li>
+    <p>비공개 클레임(Private claims) : 사용에 동의하고 등록된 클레임이나 공개 클레임이 아닌 당사자간에 정보를 공유하기 위해 생성된 맞춤 클레임이다.</p>
+  </li>
+</ul>
+
+<p>{
+  “sub”: “1234567890”,
+  “name”: “John Doe”,
+  “admin”: true
+}</p>
+
+<p>그 다음, Payload는 <code class="language-plaintext highlighter-rouge">Base64Url</code>로 인코딩되어 JWT의 두 번째 부분을 형성한다.</p>
+
+<blockquote>
+  <p>서명된 토큰의 경우 이 정보는 변조로부터 보호되지만 누구나 읽을 수 있다. 암호화되지 않은 경우 JWT의 Payload 또는 header 요소에 비밀 정보를 넣지 말아야된다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="signature">Signature</h3>
+
+<p>서명을 생성하려면 인코딩된 <code class="language-plaintext highlighter-rouge">header</code>, 인코딩된 <code class="language-plaintext highlighter-rouge">Payload</code>, <code class="language-plaintext highlighter-rouge">secret</code>, header에 지정된 알고리즘을 가져와서 서명해야 한다.<br />
+예를 들어 HMAC SHA256 알고리즘을 사용하려는 경우 서명은 다음과 같이 생성된다.</p>
+
+<p>HMACSHA256(
+  base64UrlEncode(header) + “.” +
+  base64UrlEncode(payload),
+  secret)</p>
+
+<p>서명은 메시지가 도중에 변경되지 않았는지 확인하는 데 사용되며 개인 키로 서명된 토큰의 경우 JWT의 보낸 사람이 누군지 확인할 수도 있다.</p>
+
+<p><br /></p>
+
+<h3 id="모두-합치면">모두 합치면</h3>
+
+<p>출력은 HTML 및 HTTP 환경에서 쉽게 전달할 수 있도록 점으로 구분된 3개의 Base64-URL 문자열이다.</p>
+
+<p>다음은 header와 payload가 인코딩되어 있고 비밀로 서명된 JWT를 보여준 것이다.</p>
+
+<p>!image</p>
+
+<p>JWT를 사용하고 이러한 개념을 실제로 적용하고 싶다면 jwt.io 디버거 를 사용하여 JWT 를 디코딩, 확인 및 생성할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="json-웹-토큰은-어떻게-작동하는가">JSON 웹 토큰은 어떻게 작동하는가?</h2>
+<ul>
+  <li>인증에서 사용자가 자격 증명을 사용하여 성공적으로 로그인하면 토큰을 생성하여 반환한다.</li>
+  <li>일반적으로 토큰을 필요 이상으로 오래 보관하지 않는다.</li>
+  <li>또한, 보안이 취약하기 때문에 민감한 세션 데이터를 브라우저 저장소에 저장해서는 안된다.</li>
+  <li>사용자가 보호된 경로 또는 리소스에 엑세스하려고 할 때마다 사용자는 <code class="language-plaintext highlighter-rouge">Bearer</code>스키마를 사용하여 HTTP 헤더에 <code class="language-plaintext highlighter-rouge">Authorization</code>를 탑재하여 JWT를 보내야 한다.</li>
+  <li>HTTP 헤더를 통해 JWT 토큰을 보내는 경우 토큰이 너무 커지지 않도록 해야 한다. 일부 서버는 <code class="language-plaintext highlighter-rouge">8KB</code> 이상의 헤더를 허용하지 않는다.</li>
+  <li>토큰이 <code class="language-plaintext highlighter-rouge">Authorization</code>헤더로 전송되면 <code class="language-plaintext highlighter-rouge">CORS(Cross-Origin Resource Sharing)</code>는 쿠키를 사용하지 않으므로 문제가 되지 않는다.</li>
+</ul>]]></content><author><name>GitHub User</name></author><category term="Node.js" /><category term="Node.js" /><category term="Javascript" /><summary type="html"><![CDATA[시작으로]]></summary></entry></feed>
