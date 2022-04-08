@@ -120,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
     display: none;
   }
 </style>
-<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -792,9 +791,11 @@ function googleTranslateElementInit() {
 
 
 
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
   </p>
-<div class="post-tags"><a class="post-tag" href="/tags.html#test">#test</a></div></header>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#jekyll">#jekyll</a><a class="post-tag" href="/tags.html#ruby">#ruby</a><a class="post-tag" href="/tags.html#git">#git</a>
+</div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
@@ -815,14 +816,7 @@ function googleTranslateElementInit() {
 
 <p>설치 상태 검사</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor</td>
-      <td>bash</td>
-    </tr>
-  </tbody>
-</table>
+<p>curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash</p>
 
 <p>이후 터미널을 재시작</p>
 
@@ -848,7 +842,7 @@ function googleTranslateElementInit() {
 
 <p>루비 버전은 ruby -v 실행하면 알 수 있다</p>
 
-<p>” echo ‘export PATH=”$HOME/.gem/ruby/X.X.0/bin:$PATH”’ » ~/.bash_profile “</p>
+<p>” echo ‘export PATH=”$HOME/.gem/ruby/X.X.0/bin:PATH”’ » ~/.bash_profile “</p>
 
 <p>루비 경로가 홈 디렉토리를 가르키고 있는지 확인한다</p>
 
@@ -870,7 +864,35 @@ function googleTranslateElementInit() {
 
 <p>bundle exec jekyll serve 실행하여 localhost:4000 에서 선택한 테마가 잘 작동하는지 확인</p>
 
-<h3 id="5-git-과-연결하기">5 git 과 연결하기</h3>
+<h3 id="5-git-준비">5 git 준비</h3>
+
+<p>깃 허브에 새 레파지토리를 만들어준다</p>
+
+<p>바로 블로그 페이지로 이동하게 하기 위해 레파지토리 명을 (git아이디).github.io 로 지정해둔다</p>
+
+<p>공개하고 싶으면 public 비공개시 private 설정</p>
+
+<p>생성시 새 레파지토리의 주소 url 이 생성된다.</p>
+
+<h3 id="6-git-과-연결하기">6 git 과 연결하기</h3>
+
+<p>jekyll theme 폴더 안의 _config.yml 파일에 destination: ../폴더이름/ 를 지정해줌 « git 과 연결해줄 폴더</p>
+
+<p>jekyll theme 의 부모 폴더에 내가 지정해준 폴더 가 생성된걸 확인 하면 폴더 경로로 이동하여</p>
+
+<p>git init 을 해준다 « 폴더안에 .git 폴더가 생성 되면 연동준비 완료</p>
+
+<p>git remote add (이름) (git 레파지토리 주소)  « 이름은 마음대로 해도 되나 보통은 origin을 사용</p>
+
+<p>git remote -v 로 이름과 remote 주소를 확인</p>
+
+<p>git status 실행 폴더 안 내용들을 확인</p>
+
+<p>git add &lt;파일이름/경로&gt; 를 통해 원하는 파일을 추가 가능 git add . 을 실행하여 모든 파일을 추가할수도 있다 git status 로 add 상태 확인이 가능하다.</p>
+
+<p>git commit 시 add한 파일들이 모두 commit 된다</p>
+
+<p>git push (remote이름) 시 commit된 파일들이 모두 github에 저장된다.</p>
 
 
 
@@ -883,10 +905,10 @@ function googleTranslateElementInit() {
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/junk/2017/05/20/this-post-demonstrates-post-content-styles.html" title="">This post demonstrates post content styles</a></li>
+        <li><a class="post-link" href="/markdown/2017/06/10/quick-mardown-example.html" title="">Quick markdown example</a></li>
+<li><a class="post-link" href="/example/2017/12/18/video-example.html" title="">Video example</a></li>
 <li><a class="post-link" href="/jekyll/2018/12/07/welcome-to-jekyll.html" title="">Welcome to Jekyll!</a></li>
-<li><a class="post-link" href="/jekyll/,ruby/,/git/2022/04/08/gitblog.html" title="">git 블로그 만들기</a></li>
-<li><a class="post-link" href="/junk/2016/08/12/my-example-post.html" title="">My Example Post</a></li>
+<li><a class="post-link" href="/junk/2017/05/20/this-post-demonstrates-post-content-styles.html" title="">This post demonstrates post content styles</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>
@@ -904,7 +926,7 @@ function googleTranslateElementInit() {
 </style>
 
 <div class="post-menu">
-  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-title">목록</div>
   <div class="post-menu-content"></div>
 </div>
 
