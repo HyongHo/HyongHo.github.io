@@ -1,4 +1,283 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-13T17:41:27+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>GitHub User</name></author><entry><title type="html">node.js 와 npm</title><link href="http://localhost:4000/echart/2022/04/13/echart-copy.html" rel="alternate" type="text/html" title="node.js 와 npm" /><published>2022-04-13T00:00:00+09:00</published><updated>2022-04-13T00:00:00+09:00</updated><id>http://localhost:4000/echart/2022/04/13/echart%20copy</id><content type="html" xml:base="http://localhost:4000/echart/2022/04/13/echart-copy.html"><![CDATA[<h2 id="nodejs-와-npm">node.js 와 npm</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-14T13:53:19+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>GitHub User</name></author><entry><title type="html">HTTP API 동기/비동기</title><link href="http://localhost:4000/http/api/2022/04/14/API.html" rel="alternate" type="text/html" title="HTTP API 동기/비동기" /><published>2022-04-14T00:00:00+09:00</published><updated>2022-04-14T00:00:00+09:00</updated><id>http://localhost:4000/http/api/2022/04/14/API</id><content type="html" xml:base="http://localhost:4000/http/api/2022/04/14/API.html"><![CDATA[<h2 id="http">HTTP</h2>
+
+<p>두 컴퓨터 간에 텍스트 데이터를 주고 받는 길</p>
+
+<p>요청: 작성 게시물 텍스트 데이터를 HTTP를 통해 back-end 컴퓨터로 보내고 back-end 컴퓨터에게
+이 데이터를 데이터 베이스에 저장해달라고 요청한다.</p>
+
+<p>응답: 요청을 받은 back-end 컴퓨터가 성공, 실패 등 처리 결과ㅡㄹ 응답한다 back-end 컴퓨터는 응답할 떄,
+응답 상태코드를 보낸다.</p>
+
+<p>응답 상태코드</p>
+
+<p>100 ~ 599 까지의 숫자로 구성</p>
+
+<p>200 = 성공</p>
+
+<p>400 front-end 에러</p>
+
+<p>500 back-end 에러</p>
+
+<h2 id="api">API</h2>
+
+<p>API 란 HTTP 요청을 back-end 컴퓨터에 보냈을 떄 실행되는 back-end 기능이다.
+데이터 요청을 받고 응답을 주는 담당자.</p>
+
+<h2 id="api-종류">API 종류</h2>
+
+<p>네이버에서 1번 게시글을 조회 할 때.</p>
+
+<p>rest- API = 주소처럼 생긴 이름 ex) http://naver.com/board/1</p>
+
+<p>graphql-API = 일반 함수와 같은 이름 ex) board(1)</p>
+
+<h2 id="rest-api">rest-API</h2>
+
+<p>응답 결과로 back-end 개발자가 만든 함수에서 보내주는 모든 데이터를 받아야한다.</p>
+
+<p>rest-API 에 요청하는 요청담당자: axios</p>
+
+<h2 id="graphql-api">graphql-API</h2>
+
+<p>응답 결과로 back-end 개발자가 만든 함수에서 필요한 데이터만 골라받을 수 있다.</p>
+
+<p>필요한 데이터만 골라 받을 수 있어서, 효율적인 통신을 할 수 있다.</p>
+
+<p>graphql-API 에 요청하는 요청 담당자: apollo-client</p>
+
+<p>요청담당자: front-end 에서 설치하는 라이브러리</p>
+
+<h2 id="api를-구분하는-4가지-방식">API를 구분하는 4가지 방식</h2>
+
+<ol>
+  <li>새로운 것을 생성하는 API -&gt; create</li>
+  <li>기존 것을 조회하는 API  -&gt; read</li>
+  <li>기존 것을 수정하는 API  -&gt; update</li>
+  <li>기존 것을 삭제하는 API  -&gt; delete</li>
+</ol>
+
+<h3 id="생성create">생성(create)</h3>
+
+<p>axios(rest-API) = post</p>
+
+<p>apollo-client(graphql-API) = mutation</p>
+
+<h3 id="수정update">수정(update)</h3>
+
+<p>axios(rest-API) = put</p>
+
+<p>apollo-client(graphql-API) = mutation</p>
+
+<h3 id="삭제delete">삭제(delete)</h3>
+
+<p>axios(rest-API) = delete</p>
+
+<p>apollo-client(graphql-API) = mutation</p>
+
+<h3 id="조회read">조회(read)</h3>
+
+<p>axios(rest-API) = get</p>
+
+<p>apollo-client(graphql-API) = query</p>
+
+<h4 id="rest-api-1">rest-API</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import axios from "axios"
+
+const result = axios.post(API name) // create
+
+const result = axios.get(https://naver.com/board1) // read
+
+const result = axios.put(https://naver.com/board1) // update
+
+const result = axios.delete(https://naver.com/board1) // delete
+</code></pre></div></div>
+
+<p>back-end 에서 주는대로 front-end에서 다 받아온다.</p>
+
+<h4 id="graphql-api-1">graphql-API</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import { useMutaion , useQuery } form '@apollo/client'
+
+const result = useMutaion(API name)
+
+const result = useQuery(API name)
+</code></pre></div></div>
+
+<p>back-end에서 골라서 front-end 에서 받는다.</p>
+
+<h2 id="api-명세서">API 명세서</h2>
+
+<p>back-end 개발자 에게 받는 API 사용 설명서</p>
+
+<h2 id="api-요청-결과-타입json">API 요청 결과 타입(JSON)</h2>
+
+<p>자바스크립트 객체 표기법 JSON(JavaScript Object Notation)</p>
+
+<p>API 요청의 결과가 자바스크립트의 객체처럼 표기되어 JSON이라 부른다.</p>
+
+<h2 id="동기비동기">동기/비동기</h2>
+
+<p>서버와 데이터를 주고 받는 2가지 방식</p>
+
+<h3 id="동기">동기</h3>
+
+<p>서버 컴퓨터가 작업이 끝날 때까지 기다리는 통신</p>
+
+<p>한번에 하나씩 통신</p>
+
+<p>응답이 모두 끝난 후 요청</p>
+
+<h3 id="비동기">비동기</h3>
+
+<p>서버 컴퓨터가 작업이 끝날 떄까지 기다리지 않는 통신</p>
+
+<p>서버에 요청(등록,수정,삭제 등) 저장이 될 때까지 기다리지 않고 다른 작업 진행</p>
+
+<p>동시에 여러개 통신</p>
+
+<p>오래 걸리는 일(이메일 전송, 다운로드 받으면서 메신저하기)</p>
+
+<h2 id="비동기를-동기로-바꿔주는-명령어-async-await">비동기를 동기로 바꿔주는 명령어 async/ await</h2>
+
+<p>rest_API  또는 graphql-API를 사용해서 요청에 대한 응답을 받는 객체(JSON)를 변수에 담아서 사용한다.</p>
+
+<p>응답결과를 변수에 담아서 사용하려면 통신이 완료될 떄까지 기다려야한다.</p>
+
+<p>이 때 async/await를 활용하여 기다려야한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//비동기 통신
+async function 함수(){
+    axios('API nmae') //서버 컴퓨터 요청(기다리지 않음)
+}
+
+//동기 통신
+async function 함수(){
+    await axios('API name') // 서버 컴퓨터에 요청(기다림)
+}
+</code></pre></div></div>
+
+<h3 id="promise">Promise</h3>
+
+<p>자바스크리트 비동기 처리에 사용되는 객체</p>
+
+<p>API가 실행되면 서버에다가 요청을 보내는데 받아오기도 전에 화면에 데이터를 표시하려 하면 오류가 
+발생하거나 빈화면이 뜸</p>
+
+<p>Promise는 비동기적으로 실행하는 작업의 결과를 나타내는 객체이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//비동기 통신
+
+async funciton 함수(){
+    const data = axios.get('https://adadjson.com/posts/1')
+
+    cosnlole.log(data)
+
+    //Promise
+
+}
+
+//동기 통신
+
+async funcion 함수(){
+
+    const data = await axio.get('https://adadjson.com/posts/1')
+
+    cosnlole.log(data)
+
+    //{id:1}
+
+}
+</code></pre></div></div>]]></content><author><name>GitHub User</name></author><category term="HTTP" /><category term="API" /><category term="HTTP" /><category term="API" /><summary type="html"><![CDATA[HTTP]]></summary></entry><entry><title type="html">fetch API 데이터 정제</title><link href="http://localhost:4000/http/json/2022/04/14/fetch.html" rel="alternate" type="text/html" title="fetch API 데이터 정제" /><published>2022-04-14T00:00:00+09:00</published><updated>2022-04-14T00:00:00+09:00</updated><id>http://localhost:4000/http/json/2022/04/14/fetch</id><content type="html" xml:base="http://localhost:4000/http/json/2022/04/14/fetch.html"><![CDATA[<h2 id="fetch-api">Fetch API</h2>
+
+<p>Fetch API 를 이용하면 Request 나 Resoponse 같은 HTTP 파이프라인을 구성하는 요소를 조작하는것이 가능하다.</p>
+
+<p>fetch() (en-US) 메서드를 이용하여 비동기 네트워크 통신을 알기쉽게 기술할 수 있다.</p>
+
+<p>fetch() 의 기본 스펙은 JQuery.ajax() 와 기본적으로 두가지가 다르다.</p>
+
+<ol>
+  <li>
+    <p>fetch() 로 부터 반환되는 Promise 객체는 HTTP error 상태를 reject 하지않는다 (HTTP 상태코드가 404 나 500이더라도 안한다) 대신 ok 상태가 false 인 resolve 가 반환되며 네트워크 장애나 요청이 완료되지 못한상태에는 reject가 반환된다.</p>
+  </li>
+  <li>
+    <p>fetch는 쿠키를 보내거나 받지 않는다 사이트에서 사용자 세션을 유지 관리해야 하는 경우 인증되지 않은 요청이 발생한다. 쿠키를 전송하기 위해서는 자격증명(credentials) 옵션으 반드시 설정해야 한다.</p>
+  </li>
+</ol>
+
+<p>기본적인 fetch 코드</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://example.com/movies.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(JSON.stringify(myJson));
+  });
+  //네트워크에서 JSON 파일을 가져와서 콘솔에 인쇄하는 코드
+</code></pre></div></div>
+
+<p>간단한 fetch() 사용 흐름은 인수 한개(가져올 자원의 경로)를 가져오고 응답을 포함하는 약속(Response (en-US)개체)을 반환하는것 이것은 단순한 HTTP Response 이며, 실제 JSON이 아니다.</p>
+
+<p>response 객체로부터 사진을 가져오기 위해서는 json() (en-US) 메서드를 사용할 필요가 있다.
+body의 믹스인 으로 정의되어, Request 객체와  Response (en-US) 객체의 쌍방에 구현되어 있다.</p>
+
+<h2 id="fetch-로-비동기-http-get-하기">fetch 로 비동기 HTTP GET 하기</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://210.109.63.156:9000/sample02')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson){
+</code></pre></div></div>
+
+<p><a href="'http://210.109.63.156:9000/sample02'">‘http://210.109.63.156:9000/sample02’</a></p>
+
+<p>위 샘플 HTTP 의 JSON을 GET 해와서 myJson으로 변수 선언후 초기화하였다.</p>
+
+<h3 id="json-데이터-가공하기">Json 데이터 가공하기</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"recordsFiltered":0,"data":[{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 00","value":24.77},{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 30","value":34.72},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 00","value":52.22},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 30","value":53.69},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 00","value":39.18},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 30","value":23.14},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 00","value":22.97},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 30","value":13.08}],"result_cd":"200","result_data":[{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 00","value":24.77},{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 30","value":34.72},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 00","value":52.22},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 30","value":53.69},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 00","value":39.18},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 30","value":23.14},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 00","value":22.97},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 30","value":13.08}],"draw":1,"recordsTotal":0}
+</code></pre></div></div>
+
+<p>샘플 HTTP 에 담긴 데이터를 원하는 정보와 형식으로 가공하려고 한다.</p>
+
+<p>샘플 HTTP 의 type을 typeof 로 확인 한 결과 [object object] 타입으로 나왔다.</p>
+
+<p>object 형태의 데이터에 각각 recodesFitered, data, result_cd, draw, recordsTotal 의 key 가 있으며, 각 key들 또한 [object object], number 형태의 vlaue를 담고 있는 것을 알 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://210.109.63.156:9000/sample02')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson){
+
+length = myJson.data.length;
+B=[];
+A=[];
+for(i=0; i&lt;length; i++){
+    B.push(myJson.data[i].value);
+    A.push(myJson.data[i].create_date);
+}
+</code></pre></div></div>
+
+<p>여기서 내가 필요로 하는 데이터는 “data” 라는 key 안에 있으므로 myjson.data 를 하여 myjson 의 “data” 키에 있는 value 들 만 불러오도록 한다.</p>
+
+<p>data 안에 value 들 또한 object 이므로 각 object 안에서도 원하는 데이터가 있는 key 인 vlaue 와 create_date 만 뽑아 내도록 하였다.</p>
+
+<p>myJson.data.length 를 하여 data key에 있는 value(object 형식으로 된) 의 갯수를 확인.</p>
+
+<p>A 와 B 의 배열을 선언 초기화 해주고 for 문을 통해 각 object(“data”의 value) 안의 value(“data”의 value  인 object 안의 key 명) 와 create_data  라는 이름을 가진 key의 데이터를 각각 A와 B 배열 안에 push 해주어 저장해주었다.</p>
+
+<ul>
+  <li>배열.push = 배열의 마지막 자리에 데이터를 넣어줌.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A =[8일 10 : 00,8일 10 : 30,8일 11 : 00,8일 11 : 30,8일 12 : 00,8일 12 : 30,8일 13 : 00,8일 13 : 30];
+
+B =[24.77,34.72,52.22,53.69,39.18,23.14,22.97,13.08];
+</code></pre></div></div>
+<p>위와 같이 json 에서 필요한 데이터를 A, B 배열로 가공하여 차트에 활용할 수 있게 되었다.</p>]]></content><author><name>GitHub User</name></author><category term="HTTP" /><category term="JSON" /><category term="HTTP" /><category term="JSON" /><summary type="html"><![CDATA[Fetch API]]></summary></entry><entry><title type="html">node.js 와 npm</title><link href="http://localhost:4000/node.js/2022/04/13/node.html" rel="alternate" type="text/html" title="node.js 와 npm" /><published>2022-04-13T00:00:00+09:00</published><updated>2022-04-13T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/13/node</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/13/node.html"><![CDATA[<h2 id="nodejs-와-npm">node.js 와 npm</h2>
 
 <p>node.js 와 npm 에 대하여 간단히 정리</p>
 
@@ -50,7 +329,7 @@
 
 <p>scripts 속성에 start 속성에 대한 정보를 입력하여 npm 구동시 실행할 명령어를 입력한다.</p>
 
-<p>npm 실행시 자동으로 lite-server 가 구동되면서 index.html 이 웹브라우져에 로딩된다.</p>]]></content><author><name>GitHub User</name></author><category term="echart" /><category term="echart" /><category term="css" /><summary type="html"><![CDATA[node.js 와 npm]]></summary></entry><entry><title type="html">echart 를 이용해서 js차트 만들기</title><link href="http://localhost:4000/echart/2022/04/13/echart.html" rel="alternate" type="text/html" title="echart 를 이용해서 js차트 만들기" /><published>2022-04-13T00:00:00+09:00</published><updated>2022-04-13T00:00:00+09:00</updated><id>http://localhost:4000/echart/2022/04/13/echart</id><content type="html" xml:base="http://localhost:4000/echart/2022/04/13/echart.html"><![CDATA[<h2 id="echart">Echart</h2>
+<p>npm 실행시 자동으로 lite-server 가 구동되면서 index.html 이 웹브라우져에 로딩된다.</p>]]></content><author><name>GitHub User</name></author><category term="node.js" /><category term="node.js" /><summary type="html"><![CDATA[node.js 와 npm]]></summary></entry><entry><title type="html">echart 를 이용해서 js차트 만들기</title><link href="http://localhost:4000/echart/2022/04/13/echart.html" rel="alternate" type="text/html" title="echart 를 이용해서 js차트 만들기" /><published>2022-04-13T00:00:00+09:00</published><updated>2022-04-13T00:00:00+09:00</updated><id>http://localhost:4000/echart/2022/04/13/echart</id><content type="html" xml:base="http://localhost:4000/echart/2022/04/13/echart.html"><![CDATA[<h2 id="echart">Echart</h2>
 <h2 id="1-echart-다운로드-하기">1. echart 다운로드 하기</h2>
 
 <p>Echart 홈페이지: <a href="https://echarts.apache.org/en/index.html">https://echarts.apache.org/en/index.html</a></p>
@@ -145,7 +424,7 @@ series 명을 넣어주어야 legend 요소가 차트에 나타난다.</p>
 
 <p>중괄호를 여러개 두어 여러 차트들을 한번에 만들수도 있다.</p>
 
-<p>myChart 변수에 myChart.setOtpion(option) 을 해주면 차트가 지정된 위치에 구현된다.</p>]]></content><author><name>GitHub User</name></author><category term="echart" /><category term="echart" /><category term="css" /><summary type="html"><![CDATA[Echart 1. echart 다운로드 하기]]></summary></entry><entry><title type="html">git 블로그 만들기</title><link href="http://localhost:4000/jekyll/,ruby/,/git/2022/04/08/gitblog.html" rel="alternate" type="text/html" title="git 블로그 만들기" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/jekyll/,ruby/,/git/2022/04/08/gitblog</id><content type="html" xml:base="http://localhost:4000/jekyll/,ruby/,/git/2022/04/08/gitblog.html"><![CDATA[<h2 id="macos-용-jekyll-블로그-생성-방법">macOS 용 jekyll 블로그 생성 방법</h2>
+<p>myChart 변수에 myChart.setOtpion(option) 을 해주면 차트가 지정된 위치에 구현된다.</p>]]></content><author><name>GitHub User</name></author><category term="echart" /><category term="echart" /><category term="css" /><summary type="html"><![CDATA[Echart 1. echart 다운로드 하기]]></summary></entry><entry><title type="html">git 블로그 만들기</title><link href="http://localhost:4000/jekyll/ruby/git/2022/04/08/gitblog.html" rel="alternate" type="text/html" title="git 블로그 만들기" /><published>2022-04-08T00:00:00+09:00</published><updated>2022-04-08T00:00:00+09:00</updated><id>http://localhost:4000/jekyll/ruby/git/2022/04/08/gitblog</id><content type="html" xml:base="http://localhost:4000/jekyll/ruby/git/2022/04/08/gitblog.html"><![CDATA[<h2 id="macos-용-jekyll-블로그-생성-방법">macOS 용 jekyll 블로그 생성 방법</h2>
 
 <h3 id="1-home-brew-설치하기">1 HOME brew 설치하기.</h3>
 
@@ -262,7 +541,7 @@ series 명을 넣어주어야 legend 요소가 차트에 나타난다.</p>
 <p>add한 파일들이 모두 commit 된다</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push (remote이름) 
 </code></pre></div></div>
-<p>commit된 파일들이 모두 github에 저장된다.</p>]]></content><author><name>GitHub User</name></author><category term="jekyll" /><category term=",ruby" /><category term="," /><category term="git" /><category term="jekyll" /><category term="ruby" /><category term="git" /><summary type="html"><![CDATA[macOS 용 jekyll 블로그 생성 방법]]></summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/2018/12/07/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2018-12-07T00:00:00+09:00</published><updated>2018-12-07T00:00:00+09:00</updated><id>http://localhost:4000/jekyll/2018/12/07/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/2018/12/07/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<p>commit된 파일들이 모두 github에 저장된다.</p>]]></content><author><name>GitHub User</name></author><category term="jekyll" /><category term="ruby" /><category term="git" /><category term="jekyll" /><category term="ruby" /><category term="git" /><summary type="html"><![CDATA[macOS 용 jekyll 블로그 생성 방법]]></summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/2018/12/07/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2018-12-07T00:00:00+09:00</published><updated>2018-12-07T00:00:00+09:00</updated><id>http://localhost:4000/jekyll/2018/12/07/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/2018/12/07/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
 
 <p>To add new posts, simply add a file in the <code class="language-plaintext highlighter-rouge">_posts</code> directory that follows the convention <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
 
@@ -619,162 +898,4 @@ which you wish to be displayed literally, ex.: `foo`, *bar*, etc.</p>
       <p>Some footnote text. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name>GitHub User</name></author><category term="markdown" /><category term="example" /><summary type="html"><![CDATA[Paragraphs are separated by a blank line.]]></summary></entry><entry><title type="html">This post demonstrates post content styles</title><link href="http://localhost:4000/junk/2017/05/20/this-post-demonstrates-post-content-styles.html" rel="alternate" type="text/html" title="This post demonstrates post content styles" /><published>2017-05-20T00:00:00+09:00</published><updated>2017-05-20T00:00:00+09:00</updated><id>http://localhost:4000/junk/2017/05/20/this-post-demonstrates-post-content-styles</id><content type="html" xml:base="http://localhost:4000/junk/2017/05/20/this-post-demonstrates-post-content-styles.html"><![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit.</p>
-
-<h2 id="some-great-heading-h2">Some great heading (h2)</h2>
-
-<p>Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu.</p>
-
-<p>Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.</p>
-
-<h2 id="another-great-heading-h2">Another great heading (h2)</h2>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit.</p>
-
-<h3 id="some-great-subheading-h3">Some great subheading (h3)</h3>
-
-<p>Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum.</p>
-
-<p>Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc.</p>
-
-<h3 id="some-great-subheading-h3-1">Some great subheading (h3)</h3>
-
-<p>Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.</p>
-
-<blockquote>
-  <p>This quote will change your life. It will reveal the secrets of the universe, and all the wonders of humanity. Don’t misuse it.</p>
-</blockquote>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt.</p>
-
-<h3 id="some-great-subheading-h3-2">Some great subheading (h3)</h3>
-
-<p>Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum.</p>
-
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
-  <span class="nt">&lt;head&gt;</span> <span class="nt">&lt;/head&gt;</span>
-  <span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;p&gt;</span>Hello, World!<span class="nt">&lt;/p&gt;</span>
-  <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div>
-
-<p>In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.</p>
-
-<h4 id="you-might-want-a-sub-subheading-h4">You might want a sub-subheading (h4)</h4>
-
-<p>In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.</p>
-
-<p>In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.</p>
-
-<h4 id="but-its-probably-overkill-h4">But it’s probably overkill (h4)</h4>
-
-<p>In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.</p>
-
-<h3 id="oh-hai-an-unordered-list">Oh hai, an unordered list!!</h3>
-
-<p>In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.</p>
-
-<ul>
-  <li>First item, yo</li>
-  <li>Second item, dawg</li>
-  <li>Third item, what what?!</li>
-  <li>Fourth item, fo sheezy my neezy</li>
-</ul>
-
-<h3 id="oh-hai-an-ordered-list">Oh hai, an ordered list!!</h3>
-
-<p>In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.</p>
-
-<ol>
-  <li>First item, yo</li>
-  <li>Second item, dawg</li>
-  <li>Third item, what what?!</li>
-  <li>Fourth item, fo sheezy my neezy</li>
-</ol>
-
-<h2 id="headings-are-cool-h2">Headings are cool! (h2)</h2>
-
-<p>Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.</p>
-
-<p>Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.</p>
-
-<p>Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc.</p>
-
-<h3 id="tables">Tables</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title 1</th>
-      <th>Title 2</th>
-      <th>Title 3</th>
-      <th>Title 4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>lorem</td>
-      <td>lorem ipsum</td>
-      <td>lorem ipsum dolor</td>
-      <td>lorem ipsum dolor sit</td>
-    </tr>
-    <tr>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit</td>
-    </tr>
-    <tr>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit</td>
-    </tr>
-    <tr>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit</td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title 1</th>
-      <th>Title 2</th>
-      <th>Title 3</th>
-      <th>Title 4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>lorem</td>
-      <td>lorem ipsum</td>
-      <td>lorem ipsum dolor</td>
-      <td>lorem ipsum dolor sit</td>
-    </tr>
-    <tr>
-      <td>lorem ipsum dolor sit amet</td>
-      <td>lorem ipsum dolor sit amet consectetur</td>
-      <td>lorem ipsum dolor sit amet</td>
-      <td>lorem ipsum dolor sit</td>
-    </tr>
-    <tr>
-      <td>lorem ipsum dolor</td>
-      <td>lorem ipsum</td>
-      <td>lorem</td>
-      <td>lorem ipsum</td>
-    </tr>
-    <tr>
-      <td>lorem ipsum dolor</td>
-      <td>lorem ipsum dolor sit</td>
-      <td>lorem ipsum dolor sit amet</td>
-      <td>lorem ipsum dolor sit amet consectetur</td>
-    </tr>
-  </tbody>
-</table>]]></content><author><name>Bart Simpson</name></author><category term="junk" /><summary type="html"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit.]]></summary></entry><entry><title type="html">My Example Post</title><link href="http://localhost:4000/junk/2016/08/12/my-example-post.html" rel="alternate" type="text/html" title="My Example Post" /><published>2016-08-12T00:00:00+09:00</published><updated>2016-08-12T00:00:00+09:00</updated><id>http://localhost:4000/junk/2016/08/12/my-example-post</id><content type="html" xml:base="http://localhost:4000/junk/2016/08/12/my-example-post.html"><![CDATA[<p>Eos eu docendi tractatos sapientem, brute option menandri in vix, quando vivendo accommodare te ius. Nec melius fastidii constituam id, viderer theophrastus ad sit, hinc semper periculis cum id. Noluisse postulant assentior est in, no choro sadipscing repudiandae vix. Vis in euismod delenit dignissim. Ex quod nostrum sit, suas decore animal id ius, nobis solet detracto quo te.</p>
-
-<p>No laudem altera adolescens has, volumus lucilius eum no. Eam ei nulla audiam efficiantur. Suas affert per no, ei tale nibh sea. Sea ne magna harum, in denique scriptorem sea, cetero alienum tibique ei eos. Labores persequeris referrentur eos ei.</p>]]></content><author><name>GitHub User</name></author><category term="junk" /><summary type="html"><![CDATA[Eos eu docendi tractatos sapientem, brute option menandri in vix, quando vivendo accommodare te ius. Nec melius fastidii constituam id, viderer theophrastus ad sit, hinc semper periculis cum id. Noluisse postulant assentior est in, no choro sadipscing repudiandae vix. Vis in euismod delenit dignissim. Ex quod nostrum sit, suas decore animal id ius, nobis solet detracto quo te.]]></summary></entry></feed>
+</div>]]></content><author><name>GitHub User</name></author><category term="markdown" /><category term="example" /><summary type="html"><![CDATA[Paragraphs are separated by a blank line.]]></summary></entry></feed>

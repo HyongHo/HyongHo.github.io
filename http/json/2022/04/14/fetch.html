@@ -7,22 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>git 블로그 만들기 | Your awesome title</title>
+<title>fetch API 데이터 정제 | Your awesome title</title>
 <meta name="generator" content="Jekyll v4.2.2">
-<meta property="og:title" content="git 블로그 만들기">
+<meta property="og:title" content="fetch API 데이터 정제">
 <meta name="author" content="GitHub User">
 <meta property="og:locale" content="en_US">
-<meta name="description" content="macOS 용 jekyll 블로그 생성 방법">
-<meta property="og:description" content="macOS 용 jekyll 블로그 생성 방법">
-<link rel="canonical" href="http://localhost:4000/jekyll/,ruby/,/git/2022/04/08/gitblog.html">
-<meta property="og:url" content="http://localhost:4000/jekyll/,ruby/,/git/2022/04/08/gitblog.html">
+<meta name="description" content="Fetch API">
+<meta property="og:description" content="Fetch API">
+<link rel="canonical" href="http://localhost:4000/http/json/2022/04/14/fetch.html">
+<meta property="og:url" content="http://localhost:4000/http/json/2022/04/14/fetch.html">
 <meta property="og:site_name" content="Your awesome title">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2022-04-08T00:00:00+09:00">
+<meta property="article:published_time" content="2022-04-14T00:00:00+09:00">
 <meta name="twitter:card" content="summary">
-<meta property="twitter:title" content="git 블로그 만들기">
+<meta property="twitter:title" content="fetch API 데이터 정제">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2022-04-08T00:00:00+09:00","datePublished":"2022-04-08T00:00:00+09:00","description":"macOS 용 jekyll 블로그 생성 방법","headline":"git 블로그 만들기","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/,ruby/,/git/2022/04/08/gitblog.html"},"url":"http://localhost:4000/jekyll/,ruby/,/git/2022/04/08/gitblog.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2022-04-14T00:00:00+09:00","datePublished":"2022-04-14T00:00:00+09:00","description":"Fetch API","headline":"fetch API 데이터 정제","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/http/json/2022/04/14/fetch.html"},"url":"http://localhost:4000/http/json/2022/04/14/fetch.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="shortcut icon" href="">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -750,11 +750,11 @@ function googleTranslateElementInit() {
 
 
 <header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">git 블로그 만들기</h1>
-  <h2 class="post-subtitle">블로그 만들기</h2>
+  <h1 class="post-title p-name" itemprop="name headline">fetch API 데이터 정제</h1>
+  <h2 class="post-subtitle"></h2>
 
   <p class="post-meta">
-    <time class="dt-published" datetime="2022-04-08T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 08, 2022
+    <time class="dt-published" datetime="2022-04-14T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 14, 2022
     </time>
 
     
@@ -791,133 +791,105 @@ function googleTranslateElementInit() {
 
 
 
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
   </p>
 <div class="post-tags">
-<a class="post-tag" href="/tags.html#jekyll">#jekyll</a><a class="post-tag" href="/tags.html#ruby">#ruby</a><a class="post-tag" href="/tags.html#git">#git</a>
+<a class="post-tag" href="/tags.html#HTTP">#HTTP</a><a class="post-tag" href="/tags.html#JSON">#JSON</a>
 </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
 
-      <h2 id="macos-용-jekyll-블로그-생성-방법">macOS 용 jekyll 블로그 생성 방법</h2>
+      <h2 id="fetch-api">Fetch API</h2>
 
-<h3 id="1-home-brew-설치하기">1 HOME brew 설치하기.</h3>
+<p>Fetch API 를 이용하면 Request 나 Resoponse 같은 HTTP 파이프라인을 구성하는 요소를 조작하는것이 가능하다.</p>
 
-<p>macOS 패키지 관리자 Homebrew 를 설치한다.</p>
+<p>fetch() (en-US) 메서드를 이용하여 비동기 네트워크 통신을 알기쉽게 기술할 수 있다.</p>
 
-<p>homebrew url: <a href="https://brew.sh/index_ko">https://brew.sh/index_ko</a></p>
+<p>fetch() 의 기본 스펙은 JQuery.ajax() 와 기본적으로 두가지가 다르다.</p>
 
-<h3 id="2-ruby-설치하기">2 ruby 설치하기</h3>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  brew install rbenv  
-</code></pre></div></div>
-<p>ruby build 를 설치한다</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  rbenv init 
-</code></pre></div></div>
-<p>rbenv 가 연동되도록 설정</p>
+<ol>
+  <li>
+    <p>fetch() 로 부터 반환되는 Promise 객체는 HTTP error 상태를 reject 하지않는다 (HTTP 상태코드가 404 나 500이더라도 안한다) 대신 ok 상태가 false 인 resolve 가 반환되며 네트워크 장애나 요청이 완료되지 못한상태에는 reject가 반환된다.</p>
+  </li>
+  <li>
+    <p>fetch는 쿠키를 보내거나 받지 않는다 사이트에서 사용자 세션을 유지 관리해야 하는 경우 인증되지 않은 요청이 발생한다. 쿠키를 전송하기 위해서는 자격증명(credentials) 옵션으 반드시 설정해야 한다.</p>
+  </li>
+</ol>
 
-<p>설치 상태 검사</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
-</code></pre></div></div>
-<p>이후 터미널을 재시작</p>
+<p>기본적인 fetch 코드</p>
 
-<p>rbenv 로 ruby 최신버전을 설치 (등록일 기준 3.1.1 이 최신버전)</p>
-
-<p>터미널에서 차례로</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  rbenv install 3.1.1
-
-  rbenv global 3.1.1
-</code></pre></div></div>
-<p>실행하기</p>
-
-<p>루비 버전확인</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ruby -v 
-</code></pre></div></div>
-<p>실행시 루비 버전이 최신이면 완료.</p>
-
-<h3 id="3-jekyll-설치">3 jekyll 설치.</h3>
-
-<p>jekyll 을 설치한다</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install --user-install bunder jekyll
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://example.com/movies.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(JSON.stringify(myJson));
+  });
+  //네트워크에서 JSON 파일을 가져와서 콘솔에 인쇄하는 코드
 </code></pre></div></div>
 
-<p>쉘 환경을 추가한다 x.x 에는 설치된 루비의 버전 앞 2자리를 넣는다</p>
+<p>간단한 fetch() 사용 흐름은 인수 한개(가져올 자원의 경로)를 가져오고 응답을 포함하는 약속(Response (en-US)개체)을 반환하는것 이것은 단순한 HTTP Response 이며, 실제 JSON이 아니다.</p>
 
-<p>루비 버전은 ruby -v 실행하면 알 수 있다</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>" echo 'export PATH="HOME/.gem/ruby/X.X.0/bin:PATH"' &gt;&gt; ~/.bash_profile "
+<p>response 객체로부터 사진을 가져오기 위해서는 json() (en-US) 메서드를 사용할 필요가 있다.
+body의 믹스인 으로 정의되어, Request 객체와  Response (en-US) 객체의 쌍방에 구현되어 있다.</p>
+
+<h2 id="fetch-로-비동기-http-get-하기">fetch 로 비동기 HTTP GET 하기</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://210.109.63.156:9000/sample02')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson){
 </code></pre></div></div>
 
-<p>루비 경로가 홈 디렉토리를 가르키고 있는지 확인한다</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby env
-</code></pre></div></div>
-<p>홈 디렉토리를 가르키고 있다면 완료.</p>
+<p><a href="'http://210.109.63.156:9000/sample02'">‘http://210.109.63.156:9000/sample02’</a></p>
 
-<h3 id="4-jekyll-테마-사용하기">4 jekyll 테마 사용하기</h3>
+<p>위 샘플 HTTP 의 JSON을 GET 해와서 myJson으로 변수 선언후 초기화하였다.</p>
 
-<p>jekyll theme 에서 원하는 테마를 다운로드 하여 git 경로로 지정할 디렉토리에 넣는다.</p>
+<h3 id="json-데이터-가공하기">Json 데이터 가공하기</h3>
 
-<p>지킬 테마 url: <a href="http://jekyllthemes.org/">http://jekyllthemes.org/</a></p>
-
-<p>jekyll theme 폴더 경로로 들어가</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle init
-</code></pre></div></div>
-<p>Gemfile 을 생성해준다</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install webrick
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"recordsFiltered":0,"data":[{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 00","value":24.77},{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 30","value":34.72},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 00","value":52.22},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 30","value":53.69},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 00","value":39.18},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 30","value":23.14},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 00","value":22.97},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 30","value":13.08}],"result_cd":"200","result_data":[{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 00","value":24.77},{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 30","value":34.72},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 00","value":52.22},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 30","value":53.69},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 00","value":39.18},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 30","value":23.14},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 00","value":22.97},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 30","value":13.08}],"draw":1,"recordsTotal":0}
 </code></pre></div></div>
 
-<p>서버가 실행 될 수 있게 해준다</p>
+<p>샘플 HTTP 에 담긴 데이터를 원하는 정보와 형식으로 가공하려고 한다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle exec jekyll serve 
+<p>샘플 HTTP 의 type을 typeof 로 확인 한 결과 [object object] 타입으로 나왔다.</p>
+
+<p>object 형태의 데이터에 각각 recodesFitered, data, result_cd, draw, recordsTotal 의 key 가 있으며, 각 key들 또한 [object object], number 형태의 vlaue를 담고 있는 것을 알 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://210.109.63.156:9000/sample02')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson){
+
+length = myJson.data.length;
+B=[];
+A=[];
+for(i=0; i&lt;length; i++){
+    B.push(myJson.data[i].value);
+    A.push(myJson.data[i].create_date);
+}
 </code></pre></div></div>
 
-<p>실행</p>
+<p>여기서 내가 필요로 하는 데이터는 “data” 라는 key 안에 있으므로 myjson.data 를 하여 myjson 의 “data” 키에 있는 value 들 만 불러오도록 한다.</p>
 
-<p>localhost:4000 에서 선택한 테마가 잘 작동하는지 확인</p>
+<p>data 안에 value 들 또한 object 이므로 각 object 안에서도 원하는 데이터가 있는 key 인 vlaue 와 create_date 만 뽑아 내도록 하였다.</p>
 
-<h3 id="5-git-준비">5 git 준비</h3>
+<p>myJson.data.length 를 하여 data key에 있는 value(object 형식으로 된) 의 갯수를 확인.</p>
 
-<p>깃 허브에 새 레파지토리를 만들어준다</p>
+<p>A 와 B 의 배열을 선언 초기화 해주고 for 문을 통해 각 object(“data”의 value) 안의 value(“data”의 value  인 object 안의 key 명) 와 create_data  라는 이름을 가진 key의 데이터를 각각 A와 B 배열 안에 push 해주어 저장해주었다.</p>
 
-<p>바로 블로그 페이지로 이동하게 하기 위해 레파지토리 명을</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(git아이디).github.io 
+<ul>
+  <li>배열.push = 배열의 마지막 자리에 데이터를 넣어줌.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A =[8일 10 : 00,8일 10 : 30,8일 11 : 00,8일 11 : 30,8일 12 : 00,8일 12 : 30,8일 13 : 00,8일 13 : 30];
+
+B =[24.77,34.72,52.22,53.69,39.18,23.14,22.97,13.08];
 </code></pre></div></div>
-
-<p>로 지정해둔다</p>
-
-<p>공개하고 싶으면 public 비공개시 private 설정</p>
-
-<p>생성시 새 레파지토리의 주소 url 이 생성된다.</p>
-
-<h3 id="6-git-과-연결하기">6 git 과 연결하기</h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll theme 폴더 안의 _config.yml 파일에 destination: ../폴더이름/ 를 지정해줌 &lt;&lt; git 과 연결해줄 폴더
-</code></pre></div></div>
-
-<p>jekyll theme 의 부모 폴더 안 내가 지정해준 폴더 생성 확인</p>
-
-<p>생성 폴더 경로로 이동</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init  
-</code></pre></div></div>
-<p>.git 폴더가 생성  연동준비 완료</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add (이름) (git 레파지토리 주소)  
-</code></pre></div></div>
-<p>이름은 마음대로 해도 되나 보통은 origin을 사용</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote -v 
-</code></pre></div></div>
-<p>리모트 이름과 경로 확인</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add (파일이름/경로) 
-</code></pre></div></div>
-<p>원하는 파일을 추가 가능</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add . 
-</code></pre></div></div>
-<p>실행하여 모든 파일을 추가할수도 있다 git status 로 add 상태 확인이 가능하다.</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit  
-</code></pre></div></div>
-<p>add한 파일들이 모두 commit 된다</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push (remote이름) 
-</code></pre></div></div>
-<p>commit된 파일들이 모두 github에 저장된다.</p>
+<p>위와 같이 json 에서 필요한 데이터를 A, B 배열로 가공하여 차트에 활용할 수 있게 되었다.</p>
 
 
 
@@ -925,15 +897,15 @@ function googleTranslateElementInit() {
 
 </article>
 <div class="post-nav">
-<a class="previous" href="/jekyll/2018/12/07/welcome-to-jekyll.html" title="Welcome to Jekyll!">Welcome to Jekyll!</a><a class="next" href="/echart/2022/04/13/echart-copy.html" title="node.js 와 npm">node.js 와 npm</a>
+<a class="previous" href="/http/api/2022/04/14/API.html" title="HTTP API 동기/비동기">HTTP API 동기/비동기</a><span></span>
 </div>
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/junk/2017/05/20/this-post-demonstrates-post-content-styles.html" title="node.js 와 npm">This post demonstrates post content styles</a></li>
-<li><a class="post-link" href="/markdown/2015/02/28/test-markdown.html" title="node.js 와 npm">Test markdown</a></li>
-<li><a class="post-link" href="/markdown/2018/12/05/an-exhibit-of-markdown.html" title="node.js 와 npm">An exhibit of Markdown</a></li>
-<li><a class="post-link" href="/jekyll/,ruby/,/git/2022/04/08/gitblog.html" title="node.js 와 npm">git 블로그 만들기</a></li>
+        <li><a class="post-link" href="/http/json/2022/04/14/fetch.html" title="">fetch API 데이터 정제</a></li>
+<li><a class="post-link" href="/markdown/2018/12/05/an-exhibit-of-markdown.html" title="">An exhibit of Markdown</a></li>
+<li><a class="post-link" href="/markdown/2017/06/10/quick-mardown-example.html" title="">Quick markdown example</a></li>
+<li><a class="post-link" href="/jekyll/ruby/git/2022/04/08/gitblog.html" title="">git 블로그 만들기</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>
