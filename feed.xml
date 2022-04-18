@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-18T14:21:26+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>GitHub User</name></author><entry><title type="html">linux 명령어</title><link href="http://localhost:4000/cmd/2022/04/18/linux.html" rel="alternate" type="text/html" title="linux 명령어" /><published>2022-04-18T00:00:00+09:00</published><updated>2022-04-18T00:00:00+09:00</updated><id>http://localhost:4000/cmd/2022/04/18/linux</id><content type="html" xml:base="http://localhost:4000/cmd/2022/04/18/linux.html"><![CDATA[<h2 id="linux-명령어">linux 명령어</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-18T15:20:30+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>GitHub User</name></author><entry><title type="html">linux 명령어</title><link href="http://localhost:4000/cmd/linux/2022/04/18/linux.html" rel="alternate" type="text/html" title="linux 명령어" /><published>2022-04-18T00:00:00+09:00</published><updated>2022-04-18T00:00:00+09:00</updated><id>http://localhost:4000/cmd/linux/2022/04/18/linux</id><content type="html" xml:base="http://localhost:4000/cmd/linux/2022/04/18/linux.html"><![CDATA[<h2 id="linux-명령어">linux 명령어</h2>
 
 <h2 id="1-lslist-segment">1. ls(list segment)</h2>
 
@@ -55,10 +55,125 @@
     <p>mk -m 644 dirname : 특정 퍼미션을 갖는 디렉토리를 생성합니다.</p>
 
     <ul>
-      <li><a href="">퍼미션</a></li>
+      <li><a href="https://hyongho.github.io/cmd/2022/04/18/permisson.html">퍼미션</a></li>
     </ul>
   </li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="cmd" /><category term="cmd" /><summary type="html"><![CDATA[linux 명령어]]></summary></entry><entry><title type="html">퍼미션</title><link href="http://localhost:4000/cmd/2022/04/18/permisson.html" rel="alternate" type="text/html" title="퍼미션" /><published>2022-04-18T00:00:00+09:00</published><updated>2022-04-18T00:00:00+09:00</updated><id>http://localhost:4000/cmd/2022/04/18/permisson</id><content type="html" xml:base="http://localhost:4000/cmd/2022/04/18/permisson.html"><![CDATA[<h2 id="퍼미션이란">퍼미션이란</h2>
+</ul>
+
+<h2 id="5cpcopy">5.cp(copy)</h2>
+
+<ul>
+  <li>
+    <p>cp 는 파일을 복사하는 명령어.</p>
+  </li>
+  <li>cp file cfile : file 을 cfile 이라는 이름으로 복사합니다.</li>
+  <li>cp -f file cfile : 복사할떄 복사대상이이 있으면 지우고 강제로 복사합니다.</li>
+  <li>cp -R dir cdir : 디렉토리 복사할 떄 사용하며 , 폴더안의 모든 하위경로와 파일들을 모두 복사합니다.</li>
+</ul>
+
+<h2 id="6-mvmove">6. mv(move)</h2>
+
+<ul>
+  <li>
+    <p>mv 는 파일을 이동하는 명령어.</p>
+  </li>
+  <li>mv fname mfname : fname 의 마일을 mfname 이름으로 이동/변경합니다.</li>
+  <li>mv -b fname mfname : mfname 의 파일이 존재하면 mfname 을 백업한 뒤에 이동합니다.</li>
+  <li>mv -f fname mfname : mfname 의 파일이 존재하면 백업 없이 덮어씁니다.</li>
+</ul>
+
+<h2 id="7-rmremove">7. rm(remove)</h2>
+
+<ul>
+  <li>
+    <p>rm 은 파일이나 디렉토리를 삭제할 때 사용하는 명령어.</p>
+  </li>
+  <li>rm fname : fname 을 삭제합니다.</li>
+  <li>rm -f fname : fname 을 묻지 않고 삭제합니다.</li>
+  <li>rm -r dir : dir 을 삭제합니다.
+    <ul>
+      <li>디렉토리는 -r 옵션 없이 삭제 불가능.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="8catcatenate">8.cat(catenate)</h2>
+
+<ul>
+  <li>
+    <p>cat 은 파일이름을 인자로 받아서 그 내용을 출력할 떄 사용.</p>
+  </li>
+  <li>
+    <p>cat fname : fname 의 내용을 출력합니다.</p>
+  </li>
+  <li>
+    <p>cat fname1 fname2 : fname1 과 fname2 의 내용을 이어서 출력합니다.</p>
+  </li>
+  <li>
+    <p>cat fname1 fname2 |more: fname1,fname2 를 출력하는데 페이지별로 출력합니다.</p>
+  </li>
+  <li>
+    <p>cat fname1 fname2 |head: fname1,fname2 를 출력하는데 처음부터 10번쨰 까지만 합니다.</p>
+  </li>
+  <li>
+    <p>cat fname1 fname2 |tail: fname1,fname2 를 출력하는데 끝에서부터 10번째 까지만 출력합니다.</p>
+  </li>
+</ul>
+
+<h2 id="9redirection">9.redirection(‘&gt;’,’»’)</h2>
+
+<ul>
+  <li>
+    <p>rediretion 은 리눅스 스트림 방향을 조정하는 명령어</p>
+  </li>
+  <li>
+    <p>명령 &gt; 파일 : 명령의 결과를 파일로 저장합니다.</p>
+
+    <ul>
+      <li>cat fname1 fname2 &gt; fname3: fname1, fname2 를 출력하고 fname3 이라는 파일에 저장합니다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>명령 » 파일 : 명령의 결과를 파일에 추가합니다.</p>
+
+    <ul>
+      <li>cat fname4 » fname3: fname3 에 fname4 의 내용을 추가합니다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>명령 &lt; 파일 : 파일의 데이터를 명령에 입력합니다.</p>
+
+    <ul>
+      <li>
+        <p>cat &lt; fname1 : fname1 의 내용을 출력합니다.</p>
+      </li>
+      <li>
+        <p>cat &lt; fname1 &gt; fname2 : fname1 의 내용을 출력하는 결과물을 fname2 에 저장합니다.</p>
+      </li>
+    </ul>
+
+    <h2 id="10alias">10.alias</h2>
+
+    <ul>
+      <li>
+        <p>alias 는 자주 사용하는 명령어를 간단한 명령어로 설정하는 명령어 해제시 -&gt; unalias</p>
+      </li>
+      <li>
+        <p>alias new =”command” : command 를 실행하는 새 명령어 new 를 만듭니다.</p>
+
+        <ul>
+          <li>ex) alias ls=’ls-l’ : ls 를 실행하면 -l 옵션을 갖는 ls 를 실해합니다.</li>
+        </ul>
+      </li>
+      <li>
+        <p>alias : 현재 alias 목록을 출력합니다.</p>
+      </li>
+      <li>
+        <p>unalias new : new 라는 alias 를 해제 합니다.</p>
+      </li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>GitHub User</name></author><category term="cmd" /><category term="linux" /><category term="cmd" /><category term="linux" /><summary type="html"><![CDATA[linux 명령어]]></summary></entry><entry><title type="html">퍼미션</title><link href="http://localhost:4000/cmd/2022/04/18/permisson.html" rel="alternate" type="text/html" title="퍼미션" /><published>2022-04-18T00:00:00+09:00</published><updated>2022-04-18T00:00:00+09:00</updated><id>http://localhost:4000/cmd/2022/04/18/permisson</id><content type="html" xml:base="http://localhost:4000/cmd/2022/04/18/permisson.html"><![CDATA[<h2 id="퍼미션이란">퍼미션이란</h2>
 
 <ul>
   <li>
