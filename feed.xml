@@ -1,22 +1,206 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-14T16:13:05+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>GitHub User</name></author><entry><title type="html">HTTP API 동기/비동기</title><link href="http://localhost:4000/http/api/2022/04/14/API.html" rel="alternate" type="text/html" title="HTTP API 동기/비동기" /><published>2022-04-14T00:00:00+09:00</published><updated>2022-04-14T00:00:00+09:00</updated><id>http://localhost:4000/http/api/2022/04/14/API</id><content type="html" xml:base="http://localhost:4000/http/api/2022/04/14/API.html"><![CDATA[<h2 id="http">HTTP</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-18T14:21:26+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>GitHub User</name></author><entry><title type="html">linux 명령어</title><link href="http://localhost:4000/cmd/2022/04/18/linux.html" rel="alternate" type="text/html" title="linux 명령어" /><published>2022-04-18T00:00:00+09:00</published><updated>2022-04-18T00:00:00+09:00</updated><id>http://localhost:4000/cmd/2022/04/18/linux</id><content type="html" xml:base="http://localhost:4000/cmd/2022/04/18/linux.html"><![CDATA[<h2 id="linux-명령어">linux 명령어</h2>
+
+<h2 id="1-lslist-segment">1. ls(list segment)</h2>
+
+<ul>
+  <li>
+    <p>현재 위치의 파일 목록을 조회하는 명령어.</p>
+  </li>
+  <li>ls -l : 파일들의 상세 정보를 나타냅니다.</li>
+  <li>ls -a : 숨어있는 파일들도 표시합니다.</li>
+  <li>ls -t : 파일들을 생성된 시간별로(최신부터) 표시합니다.</li>
+  <li>ls -rt: 파일들을 오래된 것 부터 표시합니다.</li>
+  <li>
+    <p>ls -F : 파일을 표시할 때 마지막에 유형을 나타내는 파일명을 끝에 표시합니다.</p>
+
+    <ul>
+      <li>각 옵션들은 자유자재로 합성해서 사용가능 ex) ls-lrt : 파일의 상세정보 + 오래된 것 부터 표시.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="2-cdchange-directory">2. cd(change directory)</h2>
+
+<ul>
+  <li>
+    <p>cd는 경로를 이동할 떄 사용하는 명령어.</p>
+  </li>
+  <li>cd~ : 어느 곳에서든지 홈디렉토리로 바로 이동합니다.</li>
+  <li>cd..: 상위 디렉토리로 이동합니다.</li>
+  <li>cd/dir : 절대경로 dir로 이동할 경우 사용합니다.</li>
+  <li>cd - : 이동하기 바로전의 디렉토리로 이동합니다.</li>
+</ul>
+
+<h2 id="3-touch">3. touch</h2>
+
+<ul>
+  <li>
+    <p>touch 는 파일의 용량이 0인 파일을 생성, 날짜 변경하는 명령어.</p>
+  </li>
+  <li>touch filename : filename 의 파일을 생성합니다.</li>
+  <li>touch -c filename : filename 의 시간을 현재시간으로 변경합니다.</li>
+  <li>touch -t 202204181350 : filename 의 시간을 날짜정보(YYYYMMDDHHMM) 로 변경합니다.</li>
+  <li>touch -r filename1 filename2 : filename2 의 날짜정보를 filename1 의 날짜정보와 같게 변경합니다.</li>
+</ul>
+
+<h2 id="4mkdirmake-directory">4.mkdir(make directory)</h2>
+
+<ul>
+  <li>
+    <p>mkdir 은 새로운 디렉토리를 만들 때 사용하는 명령어입니다.</p>
+  </li>
+  <li>mkdir dirname : dirname 의 디렉토리를 생성합니다.</li>
+  <li>mkidr -p dirname/subdname : 존재하지 않는 디렉토리의 하위 디렉토리까지 생성합니다.</li>
+  <li>
+    <p>mk -m 644 dirname : 특정 퍼미션을 갖는 디렉토리를 생성합니다.</p>
+
+    <ul>
+      <li><a href="">퍼미션</a></li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>GitHub User</name></author><category term="cmd" /><category term="cmd" /><summary type="html"><![CDATA[linux 명령어]]></summary></entry><entry><title type="html">퍼미션</title><link href="http://localhost:4000/cmd/2022/04/18/permisson.html" rel="alternate" type="text/html" title="퍼미션" /><published>2022-04-18T00:00:00+09:00</published><updated>2022-04-18T00:00:00+09:00</updated><id>http://localhost:4000/cmd/2022/04/18/permisson</id><content type="html" xml:base="http://localhost:4000/cmd/2022/04/18/permisson.html"><![CDATA[<h2 id="퍼미션이란">퍼미션이란</h2>
+
+<ul>
+  <li>
+    <p>퍼미션 : 리눅스 보안 상의 이유로 다른 사용자들이 자신의 파일을 읽거나 쓰는 것을 제어할 수 있다. 이러한 역할을 하는것을 퍼미션이라고 한다. = 디렉토리 접근에 허가 권한 부여</p>
+
+    <ul>
+      <li>
+        <p>총 10개의 문자로 표현하며, 맨앞 파일 형식을 제외한 9개의 문자로 파일 퍼미션을 나타낸다.</p>
+      </li>
+      <li>d : 디렉토리 , - :표준 파일</li>
+      <li>r : 읽기 숫자 4</li>
+      <li>w : 쓰기 숫자 2</li>
+      <li>
+        <p>x : 실행 숫자 1</p>
+      </li>
+      <li>파일구분 :  -/d/l</li>
+      <li>소유자 : rw- (앞 3개)</li>
+      <li>그룹 : rw- (중간 3개)</li>
+      <li>이외사용자 : r– (뒤 3개)</li>
+      <li>ex) 퍼미션
+        <ul>
+          <li>drw-r-r– : 644  디렉토리 소유자는 읽고 쓰기, 그룹에게는 읽기, 그 외 사용자는 읽기 까지만 허용.</li>
+          <li>drwx——: 700  디렉토리 소유자만 읽고,쓰고,실행 허용.</li>
+          <li>-rw-rw-rw-: 666  소유자, 그룹, 그외 사용자 모두 읽고 쓰기만 허용.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>chmod : 퍼미션을 바꾸기 위해 쓰는 명령어  chmod 퍼미션(숫자값) 해당 파일  로 변경</p>
+    <ul>
+      <li>chmod u(유저)+x+g(그룹)+x+o(이외)+w+z 해당파일 같은 방식으로도 가능</li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>GitHub User</name></author><category term="cmd" /><category term="cmd" /><summary type="html"><![CDATA[퍼미션이란]]></summary></entry><entry><title type="html">fetch API 데이터 정제</title><link href="http://localhost:4000/http/json/2022/04/14/fetch.html" rel="alternate" type="text/html" title="fetch API 데이터 정제" /><published>2022-04-14T00:00:00+09:00</published><updated>2022-04-14T00:00:00+09:00</updated><id>http://localhost:4000/http/json/2022/04/14/fetch</id><content type="html" xml:base="http://localhost:4000/http/json/2022/04/14/fetch.html"><![CDATA[<h2 id="fetch-api">Fetch API</h2>
+
+<p>Fetch API 를 이용하면 Request 나 Resoponse 같은 HTTP 파이프라인을 구성하는 요소를 조작하는것이 가능하다.</p>
+
+<p>fetch() (en-US) 메서드를 이용하여 비동기 네트워크 통신을 알기쉽게 기술할 수 있다.</p>
+
+<p>fetch() 의 기본 스펙은 JQuery.ajax() 와 기본적으로 두가지가 다르다.</p>
+
+<ol>
+  <li>
+    <p>fetch() 로 부터 반환되는 Promise 객체는 HTTP error 상태를 reject 하지않는다 (HTTP 상태코드가 404 나 500이더라도 안한다) 대신 ok 상태가 false 인 resolve 가 반환되며 네트워크 장애나 요청이 완료되지 못한상태에는 reject가 반환된다.</p>
+  </li>
+  <li>
+    <p>fetch는 쿠키를 보내거나 받지 않는다 사이트에서 사용자 세션을 유지 관리해야 하는 경우 인증되지 않은 요청이 발생한다. 쿠키를 전송하기 위해서는 자격증명(credentials) 옵션으 반드시 설정해야 한다.</p>
+  </li>
+</ol>
+
+<p>기본적인 fetch 코드</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://example.com/movies.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(JSON.stringify(myJson));
+  });
+  //네트워크에서 JSON 파일을 가져와서 콘솔에 인쇄하는 코드
+</code></pre></div></div>
+
+<p>간단한 fetch() 사용 흐름은 인수 한개(가져올 자원의 경로)를 가져오고 응답을 포함하는 약속(Response (en-US)개체)을 반환하는것 이것은 단순한 HTTP Response 이며, 실제 JSON이 아니다.</p>
+
+<p>response 객체로부터 사진을 가져오기 위해서는 json() (en-US) 메서드를 사용할 필요가 있다.
+body의 믹스인 으로 정의되어, Request 객체와  Response (en-US) 객체의 쌍방에 구현되어 있다.</p>
+
+<h2 id="fetch-로-비동기-http-get-하기">fetch 로 비동기 HTTP GET 하기</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://210.109.63.156:9000/sample02')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson){
+</code></pre></div></div>
+
+<p><a href="http://210.109.63.156:9000/sample02">http://210.109.63.156:9000/sample02</a></p>
+
+<p>위 샘플 HTTP 의 JSON을 GET 해와서 myJson으로 변수 선언후 초기화하였다.</p>
+
+<h3 id="json-데이터-가공하기">Json 데이터 가공하기</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"recordsFiltered":0,"data":[{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 00","value":24.77},{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 30","value":34.72},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 00","value":52.22},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 30","value":53.69},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 00","value":39.18},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 30","value":23.14},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 00","value":22.97},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 30","value":13.08}],"result_cd":"200","result_data":[{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 00","value":24.77},{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 30","value":34.72},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 00","value":52.22},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 30","value":53.69},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 00","value":39.18},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 30","value":23.14},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 00","value":22.97},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 30","value":13.08}],"draw":1,"recordsTotal":0}
+</code></pre></div></div>
+
+<p>샘플 HTTP 에 담긴 데이터를 원하는 정보와 형식으로 가공하려고 한다.</p>
+
+<p>샘플 HTTP 의 type을 typeof 로 확인 한 결과 [object object] 타입으로 나왔다.</p>
+
+<p>object 형태의 데이터에 각각 recodesFitered, data, result_cd, draw, recordsTotal 의 key 가 있으며, 각 key들 또한 [object object], number 형태의 vlaue를 담고 있는 것을 알 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://210.109.63.156:9000/sample02')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson){
+
+length = myJson.data.length;
+B=[];
+A=[];
+for(i=0; i&lt;length; i++){
+    B.push(myJson.data[i].value);
+    A.push(myJson.data[i].create_date);
+}
+</code></pre></div></div>
+
+<p>여기서 내가 필요로 하는 데이터는 “data” 라는 key 안에 있으므로 myjson.data 를 하여 myjson 의 “data” 키에 있는 value 들 만 불러오도록 한다.</p>
+
+<p>data 안에 value 들 또한 object 이므로 각 object 안에서도 원하는 데이터가 있는 key 인 vlaue 와 create_date 만 뽑아 내도록 하였다.</p>
+
+<p>myJson.data.length 를 하여 data key에 있는 value(object 형식으로 된) 의 갯수를 확인.</p>
+
+<p>A 와 B 의 배열을 선언 초기화 해주고 for 문을 통해 각 object(“data”의 value) 안의 value(“data”의 value  인 object 안의 key 명) 와 create_data  라는 이름을 가진 key의 데이터를 각각 A와 B 배열 안에 push 해주어 저장해주었다.</p>
+
+<ul>
+  <li>배열.push = 배열의 마지막 자리에 데이터를 넣어줌.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A =[8일 10 : 00,8일 10 : 30,8일 11 : 00,8일 11 : 30,8일 12 : 00,8일 12 : 30,8일 13 : 00,8일 13 : 30];
+
+B =[24.77,34.72,52.22,53.69,39.18,23.14,22.97,13.08];
+</code></pre></div></div>
+<p>위와 같이 json 에서 필요한 데이터를 A, B 배열로 가공하여 차트에 활용할 수 있게 되었다.</p>]]></content><author><name>GitHub User</name></author><category term="HTTP" /><category term="JSON" /><category term="HTTP" /><category term="JSON" /><summary type="html"><![CDATA[Fetch API]]></summary></entry><entry><title type="html">HTTP API 동기/비동기</title><link href="http://localhost:4000/http/api/2022/04/14/API.html" rel="alternate" type="text/html" title="HTTP API 동기/비동기" /><published>2022-04-14T00:00:00+09:00</published><updated>2022-04-14T00:00:00+09:00</updated><id>http://localhost:4000/http/api/2022/04/14/API</id><content type="html" xml:base="http://localhost:4000/http/api/2022/04/14/API.html"><![CDATA[<h2 id="http">HTTP</h2>
 
 <p>두 컴퓨터 간에 텍스트 데이터를 주고 받는 길</p>
 
 <p>요청: 작성 게시물 텍스트 데이터를 HTTP를 통해 back-end 컴퓨터로 보내고 back-end 컴퓨터에게
 이 데이터를 데이터 베이스에 저장해달라고 요청한다.</p>
 
-<p>응답: 요청을 받은 back-end 컴퓨터가 성공, 실패 등 처리 결과ㅡㄹ 응답한다 back-end 컴퓨터는 응답할 떄,
+<p>응답: 요청을 받은 back-end 컴퓨터가 성공, 실패 등 처리 결과를 응답한다 back-end 컴퓨터는 응답할 떄,
 응답 상태코드를 보낸다.</p>
 
 <p>응답 상태코드</p>
 
-<p>100 ~ 599 까지의 숫자로 구성</p>
+<p>100 ~ 599 = 까지의 숫자로 구성</p>
 
 <p>200 = 성공</p>
 
-<p>400 front-end 에러</p>
+<p>400 front-end = 에러</p>
 
-<p>500 back-end 에러</p>
+<p>500 back-end  = 에러</p>
 
 <h2 id="api">API</h2>
 
@@ -188,96 +372,7 @@ async funcion 함수(){
     //{id:1}
 
 }
-</code></pre></div></div>]]></content><author><name>GitHub User</name></author><category term="HTTP" /><category term="API" /><category term="HTTP" /><category term="API" /><summary type="html"><![CDATA[HTTP]]></summary></entry><entry><title type="html">fetch API 데이터 정제</title><link href="http://localhost:4000/http/json/2022/04/14/fetch.html" rel="alternate" type="text/html" title="fetch API 데이터 정제" /><published>2022-04-14T00:00:00+09:00</published><updated>2022-04-14T00:00:00+09:00</updated><id>http://localhost:4000/http/json/2022/04/14/fetch</id><content type="html" xml:base="http://localhost:4000/http/json/2022/04/14/fetch.html"><![CDATA[<h2 id="fetch-api">Fetch API</h2>
-
-<p>Fetch API 를 이용하면 Request 나 Resoponse 같은 HTTP 파이프라인을 구성하는 요소를 조작하는것이 가능하다.</p>
-
-<p>fetch() (en-US) 메서드를 이용하여 비동기 네트워크 통신을 알기쉽게 기술할 수 있다.</p>
-
-<p>fetch() 의 기본 스펙은 JQuery.ajax() 와 기본적으로 두가지가 다르다.</p>
-
-<ol>
-  <li>
-    <p>fetch() 로 부터 반환되는 Promise 객체는 HTTP error 상태를 reject 하지않는다 (HTTP 상태코드가 404 나 500이더라도 안한다) 대신 ok 상태가 false 인 resolve 가 반환되며 네트워크 장애나 요청이 완료되지 못한상태에는 reject가 반환된다.</p>
-  </li>
-  <li>
-    <p>fetch는 쿠키를 보내거나 받지 않는다 사이트에서 사용자 세션을 유지 관리해야 하는 경우 인증되지 않은 요청이 발생한다. 쿠키를 전송하기 위해서는 자격증명(credentials) 옵션으 반드시 설정해야 한다.</p>
-  </li>
-</ol>
-
-<p>기본적인 fetch 코드</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://example.com/movies.json')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    console.log(JSON.stringify(myJson));
-  });
-  //네트워크에서 JSON 파일을 가져와서 콘솔에 인쇄하는 코드
-</code></pre></div></div>
-
-<p>간단한 fetch() 사용 흐름은 인수 한개(가져올 자원의 경로)를 가져오고 응답을 포함하는 약속(Response (en-US)개체)을 반환하는것 이것은 단순한 HTTP Response 이며, 실제 JSON이 아니다.</p>
-
-<p>response 객체로부터 사진을 가져오기 위해서는 json() (en-US) 메서드를 사용할 필요가 있다.
-body의 믹스인 으로 정의되어, Request 객체와  Response (en-US) 객체의 쌍방에 구현되어 있다.</p>
-
-<h2 id="fetch-로-비동기-http-get-하기">fetch 로 비동기 HTTP GET 하기</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://210.109.63.156:9000/sample02')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson){
-</code></pre></div></div>
-
-<p><a href="http://210.109.63.156:9000/sample02">http://210.109.63.156:9000/sample02</a></p>
-
-<p>위 샘플 HTTP 의 JSON을 GET 해와서 myJson으로 변수 선언후 초기화하였다.</p>
-
-<h3 id="json-데이터-가공하기">Json 데이터 가공하기</h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"recordsFiltered":0,"data":[{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 00","value":24.77},{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 30","value":34.72},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 00","value":52.22},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 30","value":53.69},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 00","value":39.18},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 30","value":23.14},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 00","value":22.97},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 30","value":13.08}],"result_cd":"200","result_data":[{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 00","value":24.77},{"d_name":"시간별 전력 사용량","create_date":"8일 10 : 30","value":34.72},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 00","value":52.22},{"d_name":"시간별 전력 사용량","create_date":"8일 11 : 30","value":53.69},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 00","value":39.18},{"d_name":"시간별 전력 사용량","create_date":"8일 12 : 30","value":23.14},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 00","value":22.97},{"d_name":"시간별 전력 사용량","create_date":"8일 13 : 30","value":13.08}],"draw":1,"recordsTotal":0}
-</code></pre></div></div>
-
-<p>샘플 HTTP 에 담긴 데이터를 원하는 정보와 형식으로 가공하려고 한다.</p>
-
-<p>샘플 HTTP 의 type을 typeof 로 확인 한 결과 [object object] 타입으로 나왔다.</p>
-
-<p>object 형태의 데이터에 각각 recodesFitered, data, result_cd, draw, recordsTotal 의 key 가 있으며, 각 key들 또한 [object object], number 형태의 vlaue를 담고 있는 것을 알 수 있다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fetch('http://210.109.63.156:9000/sample02')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson){
-
-length = myJson.data.length;
-B=[];
-A=[];
-for(i=0; i&lt;length; i++){
-    B.push(myJson.data[i].value);
-    A.push(myJson.data[i].create_date);
-}
-</code></pre></div></div>
-
-<p>여기서 내가 필요로 하는 데이터는 “data” 라는 key 안에 있으므로 myjson.data 를 하여 myjson 의 “data” 키에 있는 value 들 만 불러오도록 한다.</p>
-
-<p>data 안에 value 들 또한 object 이므로 각 object 안에서도 원하는 데이터가 있는 key 인 vlaue 와 create_date 만 뽑아 내도록 하였다.</p>
-
-<p>myJson.data.length 를 하여 data key에 있는 value(object 형식으로 된) 의 갯수를 확인.</p>
-
-<p>A 와 B 의 배열을 선언 초기화 해주고 for 문을 통해 각 object(“data”의 value) 안의 value(“data”의 value  인 object 안의 key 명) 와 create_data  라는 이름을 가진 key의 데이터를 각각 A와 B 배열 안에 push 해주어 저장해주었다.</p>
-
-<ul>
-  <li>배열.push = 배열의 마지막 자리에 데이터를 넣어줌.</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A =[8일 10 : 00,8일 10 : 30,8일 11 : 00,8일 11 : 30,8일 12 : 00,8일 12 : 30,8일 13 : 00,8일 13 : 30];
-
-B =[24.77,34.72,52.22,53.69,39.18,23.14,22.97,13.08];
-</code></pre></div></div>
-<p>위와 같이 json 에서 필요한 데이터를 A, B 배열로 가공하여 차트에 활용할 수 있게 되었다.</p>]]></content><author><name>GitHub User</name></author><category term="HTTP" /><category term="JSON" /><category term="HTTP" /><category term="JSON" /><summary type="html"><![CDATA[Fetch API]]></summary></entry><entry><title type="html">node.js 와 npm</title><link href="http://localhost:4000/node.js/2022/04/13/node.html" rel="alternate" type="text/html" title="node.js 와 npm" /><published>2022-04-13T00:00:00+09:00</published><updated>2022-04-13T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/13/node</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/13/node.html"><![CDATA[<h2 id="nodejs-와-npm">node.js 와 npm</h2>
+</code></pre></div></div>]]></content><author><name>GitHub User</name></author><category term="HTTP" /><category term="API" /><category term="HTTP" /><category term="API" /><summary type="html"><![CDATA[HTTP]]></summary></entry><entry><title type="html">node.js 와 npm</title><link href="http://localhost:4000/node.js/2022/04/13/node.html" rel="alternate" type="text/html" title="node.js 와 npm" /><published>2022-04-13T00:00:00+09:00</published><updated>2022-04-13T00:00:00+09:00</updated><id>http://localhost:4000/node.js/2022/04/13/node</id><content type="html" xml:base="http://localhost:4000/node.js/2022/04/13/node.html"><![CDATA[<h2 id="nodejs-와-npm">node.js 와 npm</h2>
 
 <p>node.js 와 npm 에 대하여 간단히 정리</p>
 
@@ -689,213 +784,4 @@ series 명을 넣어주어야 legend 요소가 차트에 나타난다.</p>
       <li>it can be exactly represented</li>
     </ul>
   </li>
-</ul>]]></content><author><name>GitHub User</name></author><category term="markdown" /><category term="test" /><summary type="html"><![CDATA[A safe integer is an integer that can be exactly represented as an IEEE-754 double precision number, and whose IEEE-75 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation For example, $ 2 ^ {53} - 1 $ is a safe integer, it can be exactly represented]]></summary></entry><entry><title type="html">Video example</title><link href="http://localhost:4000/example/2017/12/18/video-example.html" rel="alternate" type="text/html" title="Video example" /><published>2017-12-18T00:00:00+09:00</published><updated>2017-12-18T00:00:00+09:00</updated><id>http://localhost:4000/example/2017/12/18/video-example</id><content type="html" xml:base="http://localhost:4000/example/2017/12/18/video-example.html"><![CDATA[<h2 id="canon-in-d-pachelbels-canon---cello--piano-best-wedding-version">Canon in D (Pachelbel’s Canon) - Cello &amp; Piano [BEST WEDDING VERSION]</h2>
-<p>Some of you know that we occasionally play for weddings. As you can imagine, we get a LOT of requests for Canon in D, and we discovered that there were no good arrangements available anywhere for piano and cello! Hard to believe given its popularity. So we decided to make our own! We tried to stick as closely to the original as possible (which was written for three violins and basso continuo), and we performed it <em>not</em> at a snail’s pace so the bride can actually make it down the aisle without putting everyone to sleep. 🙊(Yeah, we said it! Nobody likes a slow processional!) Also, the number one complaint about this piece from cellists is always how booooring it is to play because they literally have to play the same 8 bass notes over and over for the entire piece. Problem solved with this arrangement because the cello never has to play the bass! 🙌(The piano does, but we get lots of other fun stuff too so it’s ok!) So for all you musicians out there playing weddings, we hope you enjoy playing this arrangement a little more than the ones you were used to…You can get it from www.musicnotes.com. 😊Be sure to let us know in the comments if you do!</p>
-
-<p><img src="//www.youtube.com/watch?v=Ptk_1Dc2iPY" alt="" /></p>
-
-<h2 id="gucci-hallucination--the-line-animation--gucci">GUCCI HALLUCINATION / THE LINE ANIMATION / GUCCI</h2>
-<p>BACKGROUND /</p>
-
-<p>Gucci share their creative vision through a series of surreal animated paintings by acclaimed artist Ignasi Monreal and The Line Animation studio. The animations make up part of a larger campaign shared via social media, above the line and print.</p>
-
-<p>APPROACH /</p>
-
-<p>Our aim was to ground and accentuate the outlandish scenarios with ambient sound design. Neither proclaiming to be positive or negative, the sound conveys a sense of the uncanny and leaves the audience with nothing but their own interpretations. their creative vision through a series of surreal animated paintings by acclaimed artist Ignasi Monreal and The Line Animation studio. The animations make up part of a larger campaign shared via social media, above the line and print.</p>
-
-<p><img src="https://vimeo.com/263856289" alt="" /></p>
-
-<h2 id="finneas-demos-how-he-builds-songs-for-billie-eilish">FINNEAS Demos How He Builds Songs For Billie Eilish</h2>
-<p>Grammy Award-winning musician and producer FINNEAS sits down with Pitchfork and closely examines his creative process while working on some of the biggest hit songs of the past couple years. FINNEAS explores the sounds that brought upon 
-some of his greatest musical breakthroughs in songs such as bad guy, bury a friend, ocean eyes, when the party’s over, I Lost a Friend, Used to This and much more.</p>
-
-<p><img src="https://dai.ly/x7tgcev" alt="" /></p>
-
-<h2 id="2019-bmw-vision-m-next-concept-hd">2019 BMW Vision M NEXT Concept (HD)</h2>
-
-<p>In future, drivers will be able to choose whether they wish to be driven or do the driving themselves. With the BMW Vision M NEXT, the BMW Group is revealing its take on how driving pleasure might look in future. It offers a foretaste of the BMW M brand’s electrified future by placing the focus squarely on the actively engaged driver. Intelligent technologies provide comprehensive yet carefully targeted assistance to turn them into the ultimate driver.</p>
-
-<p><img src="https://www.dailymotion.com/video/x7bur2y" alt="" /></p>
-
-<h2 id="this-is-the-poster-image">This is the poster image</h2>
-<p>In modern browsers, adding a video to your page is as easy as adding an image. No longer do you need to deal with special plug-ins or require crazy markup, you can do it with a single element.
-<img src="//www.html5rocks.com/en/tutorials/video/basics/devstories.webm" alt="video" /></p>]]></content><author><name>GitHub User</name></author><category term="example" /><category term="video" /><summary type="html"><![CDATA[Canon in D (Pachelbel’s Canon) - Cello &amp; Piano [BEST WEDDING VERSION] Some of you know that we occasionally play for weddings. As you can imagine, we get a LOT of requests for Canon in D, and we discovered that there were no good arrangements available anywhere for piano and cello! Hard to believe given its popularity. So we decided to make our own! We tried to stick as closely to the original as possible (which was written for three violins and basso continuo), and we performed it not at a snail’s pace so the bride can actually make it down the aisle without putting everyone to sleep. 🙊(Yeah, we said it! Nobody likes a slow processional!) Also, the number one complaint about this piece from cellists is always how booooring it is to play because they literally have to play the same 8 bass notes over and over for the entire piece. Problem solved with this arrangement because the cello never has to play the bass! 🙌(The piano does, but we get lots of other fun stuff too so it’s ok!) So for all you musicians out there playing weddings, we hope you enjoy playing this arrangement a little more than the ones you were used to…You can get it from www.musicnotes.com. 😊Be sure to let us know in the comments if you do!]]></summary></entry><entry><title type="html">Quick markdown example</title><link href="http://localhost:4000/markdown/2017/06/10/quick-mardown-example.html" rel="alternate" type="text/html" title="Quick markdown example" /><published>2017-06-10T00:00:00+09:00</published><updated>2017-06-10T00:00:00+09:00</updated><id>http://localhost:4000/markdown/2017/06/10/quick-mardown-example</id><content type="html" xml:base="http://localhost:4000/markdown/2017/06/10/quick-mardown-example.html"><![CDATA[<p>Paragraphs are separated by a blank line.</p>
-
-<p>2nd paragraph. <em>Italic</em>, <strong>bold</strong>, and <code class="language-plaintext highlighter-rouge">monospace</code>. Itemized lists
-look like:</p>
-
-<ul>
-  <li>this one</li>
-  <li>that one</li>
-  <li>the other one</li>
-</ul>
-
-<p>Note that — not considering the asterisk — the actual text
-content starts at 4-columns in.</p>
-
-<blockquote>
-  <p>Block quotes are
-written like so.</p>
-
-  <p>They can span multiple paragraphs,
-if you like.</p>
-</blockquote>
-
-<p>Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., “it’s all
-in chapters 12–14”). Three dots … will be converted to an ellipsis.
-Unicode is supported. ☺</p>
-
-<h2 id="an-h2-header">An h2 header</h2>
-
-<p>Here’s a numbered list:</p>
-
-<ol>
-  <li>first item</li>
-  <li>second item</li>
-  <li>third item</li>
-</ol>
-
-<p>Note again how the actual text starts at 4 columns in (4 characters
-from the left side). Here’s a code sample:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Let me re-iterate ...
-for i in 1 .. 10 { do-something(i) }
-</code></pre></div></div>
-
-<p>As you probably guessed, indented 4 spaces. By the way, instead of
-indenting the block, you can use delimited blocks, if you like:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>define foobar() {
-    print "Welcome to flavor country!";
-}
-</code></pre></div></div>
-
-<p>(which makes copying &amp; pasting easier). You can optionally mark the
-delimited block for Pandoc to syntax highlight it:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">time</span>
-<span class="c1"># Quick, count to ten!
-</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="c1"># (but not *too* quick)
-</span>    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h3 id="an-h3-header">An h3 header</h3>
-
-<p>Now a nested list:</p>
-
-<ol>
-  <li>
-    <p>First, get these ingredients:</p>
-
-    <ul>
-      <li>carrots</li>
-      <li>celery</li>
-      <li>lentils</li>
-    </ul>
-  </li>
-  <li>
-    <p>Boil some water.</p>
-  </li>
-  <li>
-    <p>Dump everything in the pot and follow
-this algorithm:</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find wooden spoon
-uncover pot
-stir
-cover pot
-balance wooden spoon precariously on pot handle
-wait 10 minutes
-goto first step (or shut off burner when done)
-</code></pre></div>    </div>
-
-    <p>Do not bump wooden spoon or it will fall.</p>
-  </li>
-</ol>
-
-<p>Notice again how text always lines up on 4-space indents (including
-that last line which continues item 3 above).</p>
-
-<p>Here’s a link to <a href="http://foo.bar">a website</a>, to a <a href="local-doc.html">local
-doc</a>, and to a <a href="#an-h2-header">section heading in the current
-doc</a>. Here’s a footnote <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>.</p>
-
-<p>Tables can look like this:</p>
-
-<p>Name           Size  Material      Color
-————- —–  ————  ————
-All Business      9  leather       brown
-Roundabout       10  hemp canvas   natural
-Cinderella       11  glass         transparent</p>
-
-<p>Table: Shoes sizes, materials, and colors.</p>
-
-<p>(The above is the caption for the table.) Pandoc also supports
-multi-line tables:</p>
-
-<hr />
-<p>Keyword   Text
-——–  ———————–
-red       Sunsets, apples, and
-          other red or reddish
-          things.</p>
-
-<p>green     Leaves, grass, frogs
-          and other things it’s
-          not easy being.
-——–  ———————–</p>
-
-<p>A horizontal rule follows.</p>
-
-<hr />
-
-<p>Here’s a definition list:</p>
-
-<dl>
-  <dt>apples</dt>
-  <dd>Good for making applesauce.</dd>
-  <dt>oranges</dt>
-  <dd>Citrus!</dd>
-  <dt>tomatoes</dt>
-  <dd>There’s no “e” in tomatoe.</dd>
-</dl>
-
-<p>Again, text is indented 4 spaces. (Put a blank line between each
-term and  its definition to spread things out more.)</p>
-
-<p>Here’s a “line block” (note how whitespace is honored):</p>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Line one</td>
-    </tr>
-    <tr>
-      <td>Line too</td>
-    </tr>
-    <tr>
-      <td>Line tree</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>and images can be specified like so:</p>
-
-<p><img src="http://www.unexpected-vortices.com/sw/rippledoc/example-image.jpg" alt="example image" title="An exemplary image" /></p>
-
-<p>Inline math equation: $\omega = d\phi / dt$. Display
-math should get its own line like so:</p>
-
-<p>$$I = \int \rho R^{2} dV$$</p>
-
-<p>And note that you can backslash-escape any punctuation characters
-which you wish to be displayed literally, ex.: `foo`, *bar*, etc.</p>
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:1" role="doc-endnote">
-      <p>Some footnote text. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-  </ol>
-</div>]]></content><author><name>GitHub User</name></author><category term="markdown" /><category term="example" /><summary type="html"><![CDATA[Paragraphs are separated by a blank line.]]></summary></entry></feed>
+</ul>]]></content><author><name>GitHub User</name></author><category term="markdown" /><category term="test" /><summary type="html"><![CDATA[A safe integer is an integer that can be exactly represented as an IEEE-754 double precision number, and whose IEEE-75 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation For example, $ 2 ^ {53} - 1 $ is a safe integer, it can be exactly represented]]></summary></entry></feed>
