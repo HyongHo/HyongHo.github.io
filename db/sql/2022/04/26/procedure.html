@@ -7,22 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Mathjax Test | Your awesome title</title>
+<title>프로시저와 함수 | Your awesome title</title>
 <meta name="generator" content="Jekyll v4.2.2">
-<meta property="og:title" content="Mathjax Test">
+<meta property="og:title" content="프로시저와 함수">
 <meta name="author" content="GitHub User">
 <meta property="og:locale" content="en_US">
-<meta name="description" content="A safe integer is an integer that can be exactly represented as an IEEE-754 double precision number, and whose IEEE-75 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation For example, $ 2 ^ {53} - 1 $ is a safe integer, it can be exactly represented">
-<meta property="og:description" content="A safe integer is an integer that can be exactly represented as an IEEE-754 double precision number, and whose IEEE-75 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation For example, $ 2 ^ {53} - 1 $ is a safe integer, it can be exactly represented">
-<link rel="canonical" href="http://localhost:4000/markdown/2018/05/26/mathjax-test.html">
-<meta property="og:url" content="http://localhost:4000/markdown/2018/05/26/mathjax-test.html">
+<meta name="description" content="프로시저와 함수">
+<meta property="og:description" content="프로시저와 함수">
+<link rel="canonical" href="http://localhost:4000/db/sql/2022/04/26/procedure.html">
+<meta property="og:url" content="http://localhost:4000/db/sql/2022/04/26/procedure.html">
 <meta property="og:site_name" content="Your awesome title">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2018-05-26T00:00:00+09:00">
+<meta property="article:published_time" content="2022-04-26T00:00:00+09:00">
 <meta name="twitter:card" content="summary">
-<meta property="twitter:title" content="Mathjax Test">
+<meta property="twitter:title" content="프로시저와 함수">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2018-05-26T00:00:00+09:00","datePublished":"2018-05-26T00:00:00+09:00","description":"A safe integer is an integer that can be exactly represented as an IEEE-754 double precision number, and whose IEEE-75 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation For example, $ 2 ^ {53} - 1 $ is a safe integer, it can be exactly represented","headline":"Mathjax Test","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/markdown/2018/05/26/mathjax-test.html"},"url":"http://localhost:4000/markdown/2018/05/26/mathjax-test.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"GitHub User"},"dateModified":"2022-04-26T00:00:00+09:00","datePublished":"2022-04-26T00:00:00+09:00","description":"프로시저와 함수","headline":"프로시저와 함수","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/db/sql/2022/04/26/procedure.html"},"url":"http://localhost:4000/db/sql/2022/04/26/procedure.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="shortcut icon" href="">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -750,11 +750,11 @@ function googleTranslateElementInit() {
 
 
 <header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">Mathjax Test</h1>
-  <h2 class="post-subtitle">My first mathjax expression</h2>
+  <h1 class="post-title p-name" itemprop="name headline">프로시저와 함수</h1>
+  <h2 class="post-subtitle"></h2>
 
   <p class="post-meta">
-    <time class="dt-published" datetime="2018-05-26T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 26, 2018
+    <time class="dt-published" datetime="2022-04-26T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 26, 2022
     </time>
 
     
@@ -793,39 +793,130 @@ function googleTranslateElementInit() {
 
     <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
   </p>
-<div class="post-tags"><a class="post-tag" href="/tags.html#test">#test</a></div></header>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#DB">#DB</a><a class="post-tag" href="/tags.html#sql">#sql</a>
+</div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
 
-      <ul>
-  <li>A safe integer is an integer that
-    <ul>
-      <li>can be exactly represented as an IEEE-754 double precision number, and</li>
-      <li>whose IEEE-75 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation</li>
-    </ul>
-  </li>
-  <li>For example, $ 2 ^ {53} - 1 $ is a safe integer,
-    <ul>
-      <li>it can be exactly represented</li>
-    </ul>
-  </li>
-</ul>
+      <h2 id="프로시저와-함수">프로시저와 함수</h2>
+
+<p>프로시저와 함수의 정의와 차이점</p>
+
+<h2 id="프로시저">프로시저</h2>
+
+<p>프로시저 : 업무를 수행하기 위한 절차.</p>
+
+<p>플세스를 절차적으로 기술해 놓은것이 프로시저라 한다.</p>
+
+<p>프로시저 문법</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>create or replace proceure 프로시저명
+    \(매개변수명1 \[in \|| out \|| inout] 데이터타입,
+     매개변수명2 \[in \|| out \|| inout] 데이터타입...)
+     is \|| as
+        변수, 상수 등 선언(선언부)
+     begin
+        실행문장(실행부)
+        eception 문장 // 필수아님
+    end ;
+</code></pre></div></div>
+
+<p>예제</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 사번을 입력받아 급여를 인상하는 update_sal  프로시저
+create or replace procedure update_sal
+    (v_empno in number)
+is
+begin
+    update emp
+    set sal = sal*1.1
+    where empno = v_empno;
+end update_sal;
+</code></pre></div></div>
+
+<h2 id="함수">함수</h2>
+
+<p>위 프로시저의 각 프로세스를 수행하기 위해 필요한 기능을 함수라 한다.</p>
+
+<p>함수 문법</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>create or replace funtion 함수명
+    (매개변수명1 매개변수1타입,
+     매개변수명2 매개변수2타입...)
+return 데이터타입
+is \|| as
+    변수, 상수등을 선언(선언부)
+begin
+    실행 문장(실행부)
+return 반환값 //필수
+exception 문장 //필수아님
+end;
+</code></pre></div></div>
+<p>함수 예제</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 날짜를 입력하면 yyy-mm-dd 형태로 바꿔주느 하무
+create or replace funtion testDate( date Date)
+return varchar2
+is
+    changeDate varchar2(20);
+begin 
+    changeDate := null;
+    changeDate := TO_CHAR (date, 'yyyy-mm-dd');
+    return changeDate;
+end;
+</code></pre></div></div>
+
+<h2 id="함수와-프로시저의-차이">함수와 프로시저의 차이</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>프로시저</td>
+      <td>함수</td>
+    </tr>
+    <tr>
+      <td>특정한 작업을 수행</td>
+      <td>특정한 계산을 수행</td>
+    </tr>
+    <tr>
+      <td>리턴값을 가질수도 안가질수도 있음</td>
+      <td>리턴값을 반드시 가져야함</td>
+    </tr>
+    <tr>
+      <td>리턴값을 여러개 가질수 있음</td>
+      <td>리턴값을 오직 하나만 가질 수 있음</td>
+    </tr>
+    <tr>
+      <td>서버(DB)단에서 기술</td>
+      <td>화면(client)단에서 기술</td>
+    </tr>
+    <tr>
+      <td>수식내에서 사용 불가</td>
+      <td>수식내에서만 사용 가능</td>
+    </tr>
+    <tr>
+      <td>단독으로 문장 구성 가능</td>
+      <td>단독으로 문장 구성 불가</td>
+    </tr>
+  </tbody>
+</table>
 
 
     </div>
 
 </article>
 <div class="post-nav">
-<a class="previous" href="/example/2017/12/18/video-example.html" title="Video example">Video example</a><a class="next" href="/markdown/2018/12/05/an-exhibit-of-markdown.html" title="An exhibit of Markdown">An exhibit of Markdown</a>
+<a class="previous" href="/springboot/2022/04/25/springboot-mvc.html" title="springboot mvc">springboot mvc</a><a class="next" href="/db/sql/2022/04/26/sql.html" title="sql">sql</a>
 </div>
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/http/json/2022/04/14/fetch.html" title="An exhibit of Markdown">fetch API 데이터 정제</a></li>
-<li><a class="post-link" href="/springboot/2022/04/25/springboot-mvc.html" title="An exhibit of Markdown">springboot mvc</a></li>
-<li><a class="post-link" href="/http/servlet/jsp/2022/04/19/web-was.html" title="An exhibit of Markdown">web 과 Was</a></li>
-<li><a class="post-link" href="/cmd/2022/04/18/permisson-copy.html" title="An exhibit of Markdown">퍼미션</a></li>
+        <li><a class="post-link" href="/example/2017/12/18/video-example.html" title="sql">Video example</a></li>
+<li><a class="post-link" href="/jenkins/2022/04/25/CICD.html" title="sql">CI/CD jenkins</a></li>
+<li><a class="post-link" href="/markdown/2018/12/05/an-exhibit-of-markdown.html" title="sql">An exhibit of Markdown</a></li>
+<li><a class="post-link" href="/markdown/2018/05/26/mathjax-test.html" title="sql">Mathjax Test</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>
