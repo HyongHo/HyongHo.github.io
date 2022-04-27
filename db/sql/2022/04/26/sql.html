@@ -989,8 +989,13 @@ function googleTranslateElementInit() {
   <li>INDEX : 테이블의 칼럼을 색인화(따로 파일로 저장) 하여 검색시 테이블의 레코드를 전부 스캔하는게 아니라 색인화된 인덱스 파일을 검색하여 검색속도를 빠르게 한다.</li>
 </ul>
 
-<p>select 쿼리의 where 절이나 join 예약어를 사용했을때 사용디며 select 쿼리의 검색속도를 빠르게 하는데 목적을 두고 있다.
-(delete, insert, update 쿼리는 해당사항이 없으며 사용시 더 느려진다.)</p>
+<p>select 쿼리의 where 절이나 join 예약어를 사용했을때 사용디며 select 쿼리의 검색속도를 빠르게 하는데 목적을 두고 있다.(delete, insert, update 쿼리는 해당사항이 없으며 사용시 더 느려진다)</p>
+
+<p>데이터의 레코드는 내부적으로 순서없이 저장되며 저장영역을 heap 이라고 한다.</p>
+
+<p>heap 에서는 인덱스가 없는 테이블의 데이터를 찾을때 전체 데이터 페이지의 청므 레코드부터 끝페이지의 마지막 레코드 까지 모두 조회하여 검색조건과 비교하게 된다. -&gt; 테이블 스캔 또는 풀 스캔이라고 함</p>
+
+<p>양이 많은 테이블에서 일부분의 데이터만 불러 올 때 풀 스캔을 하면 처리 성능이 떨어진다. -&gt; 즉 인덱스는 셀렉트를 할때 빨리 찾기 위해 사용된다.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CREATE INDEX index_name on table_name (column_name[,column_name...]);
 </code></pre></div></div>
@@ -1122,6 +1127,9 @@ ALTER TABLE table_name DROP COLUMN column_name CASCADE CONSTRAINTS;
     <div class="language-plaintext highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code>  revoke [권한] on [DB].[table] from [user_id]@[host]
 </code></pre></div>    </div>
+  </li>
+  <li>
+    <p>트랜젝션 제어: dml에 대한 사용자별 트랜젝션 관리</p>
 
     <ul>
       <li>commit : 트랜잭션의 작업이 정상적으로 완료할 수 있는 권한</li>
@@ -1138,9 +1146,17 @@ ALTER TABLE table_name DROP COLUMN column_name CASCADE CONSTRAINTS;
     <div class="language-plaintext highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code>  rollback;
 </code></pre></div>    </div>
-  </li>
-  <li>
-    <p>트랜젝션 제어: dml에 대한 사용자별 트랜젝션 관리</p>
+
+    <ul>
+      <li>savepoint : 롤백할때 트랜잭션에 포함된 전체 작업을 롤백하는 것이 아니라 현 시점에서 저장지점 까지 트랜잭션의 일부만 롤백 가능 다수의 저장점을 정의 할 수 있으며, 동일명으로 저장점 정의시 나중에 정의한 저장점이 유효</li>
+    </ul>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  savepoint 포인트명1;
+  savepoint 포인트명2;
+
+  rollback to 포인트명1;
+</code></pre></div>    </div>
   </li>
 </ul>
 
@@ -1187,15 +1203,15 @@ ALTER TABLE table_name DROP COLUMN column_name CASCADE CONSTRAINTS;
 
 </article>
 <div class="post-nav">
-<a class="previous" href="/db/sql/2022/04/26/procedure.html" title="프로시저와 함수">프로시저와 함수</a><span></span>
+<a class="previous" href="/db/sql/2022/04/26/procedure.html" title="프로시저와 함수">프로시저와 함수</a><a class="next" href="/java/springboot/2022/04/27/framework-library.html" title="프레임워크와 라이브러리">프레임워크와 라이브러리</a>
 </div>
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/example/2017/12/18/video-example.html" title="">Video example</a></li>
-<li><a class="post-link" href="/junk/2017/05/20/this-post-demonstrates-post-content-styles.html" title="">This post demonstrates post content styles</a></li>
-<li><a class="post-link" href="/jenkins/2022/04/25/CICD.html" title="">CI/CD jenkins</a></li>
-<li><a class="post-link" href="/markdown/2018/05/26/mathjax-test.html" title="">Mathjax Test</a></li>
+        <li><a class="post-link" href="/node.js/2022/04/13/node.html" title="프레임워크와 라이브러리">node.js 와 npm</a></li>
+<li><a class="post-link" href="/example/2017/12/18/video-example.html" title="프레임워크와 라이브러리">Video example</a></li>
+<li><a class="post-link" href="/java/springboot/2022/04/27/framework-library.html" title="프레임워크와 라이브러리">프레임워크와 라이브러리</a></li>
+<li><a class="post-link" href="/springboot/2022/04/25/springboot-mvc.html" title="프레임워크와 라이브러리">springboot mvc</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>
